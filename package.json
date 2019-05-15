@@ -1,0 +1,17 @@
+{
+  "name": "DBM-Project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.16.4",
+    "mustache": "^3.0.1",
+    "nodemon": "^1.19.0"
+  }
+}

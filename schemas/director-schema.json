@@ -1,0 +1,19 @@
+{
+    "title": "Director",
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string"
+        },
+        "datOfBirth": {
+            "type": "string"
+        },  
+        "moviesDirected": {
+            "type": "array"
+        }
+    },
+    "required": [
+        "name",
+        "moviesDirected"
+    ]
+}

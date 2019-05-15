@@ -1,0 +1,28 @@
+{
+    "title": "Movie",
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string"
+        },
+        "category": {
+            "type": "string"
+        },
+        "rating": {
+            "type": "integer"
+        },
+        "cast": {
+            "type": "array"
+        },
+        "length": {
+            "type": "string"
+        }
+    },
+    "required": [
+        "name",
+        "category",
+        "rating",
+        "cast",
+        "length"
+    ]
+}

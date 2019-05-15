@@ -1,0 +1,19 @@
+{
+    "title": "Cinema",
+    "type": "object",
+    "properties": {
+        "name": {
+            "type": "string"
+        },
+        "movies": {
+            "type": "array"
+        },
+        "ticketPrice": {
+            "type": "integer"
+        }
+    },
+    "required": [
+        "name",
+        "datOfBirth"
+    ]
+}
