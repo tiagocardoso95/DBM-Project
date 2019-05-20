@@ -1,0 +1,35 @@
+{
+    "port": "8080",
+    "modules": {
+        "express": true
+    },
+    "schemas": [
+        {
+            "name": "Cinema",
+            "path": "../schemas/cinema-schema.json"
+        },
+        {
+            "name": "Actor",
+            "path": "../schemas/actor-schema.json"
+        },
+        {
+            "name": "Category",
+            "path": "../schemas/category-schema.json"
+        },
+        {
+            "name": "Director",
+            "path": "../schemas/director-schema.json"
+        },
+        {
+            "name": "Movie",
+            "path": "../schemas/movie-schema.json"
+        }
+    ],
+    "dbname": "project_db.db",
+    "staticFiles": [
+        {
+            "originalPath": "../sqlitedbm.js",
+            "destinationPath": "../publish/Database"
+        }
+    ]
+}
