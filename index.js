@@ -47,7 +47,7 @@ app.get("/Actors",(req,res) =>{
 });
 
 app.get("/ActorsC",(req,res) =>{
-    Actor.all(function(rows){
+    Actor.delete(1,function(rows){
         console.log(rows);
     });
 });
