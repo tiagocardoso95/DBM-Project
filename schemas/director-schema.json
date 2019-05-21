@@ -3,13 +3,16 @@
     "type": "object",
     "properties": {
         "name": {
-            "type": "string"
+            "type": "string",
+            "columnName": "director_name"
         },
-        "datOfBirth": {
-            "type": "string"
+        "dateOfBirth": {
+            "type": "string",
+            "columnName": "director_dateOfBirth"
         },  
         "moviesDirected": {
-            "type": "array"
+            "type": "array",
+            "columnName": "director_moviesDirected"
         }
     },
     "required": [

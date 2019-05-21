@@ -14,24 +14,26 @@ module.exports = {
         
         var template = fs.readFileSync("./database/create-table.mustache").toString();
 
-        var classProps = Object.keys(schema.properties);
+        var classProps = schema.properties;
         var requiredProps = schema.required;
-        console.log(classProps);
+        //console.log(classProps);
 
-        var tableContent = function(){
-            var content = "";
+        var content = "";
+        for(var prop in classProps){
+            console.log(prop);
+            
+            content += classProps[prop].columnName + " "+classProps[prop].type+","
+        }
+        content = content.substring(0,content.length-1);
+        console.log(content);
 
-            classProps.forEach(key =>{
-                
-
-            });
+        var view = {
+            classTitle: schema.title,
+            tableContents: content
         }
 
-
-
-
-        //var output = mustache.render(template.toString(), schema);
-        //db.run(output);
+        var output = mustache.render(template.toString(), view);
+        db.run(output);
 
         //close db connection
         db.close((err)=>{

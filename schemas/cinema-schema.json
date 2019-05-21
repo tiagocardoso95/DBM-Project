@@ -3,17 +3,19 @@
     "type": "object",
     "properties": {
         "name": {
-            "type": "string"
+            "type": "string",
+            "columnName": "cinema_name"
         },
         "movies": {
-            "type": "array"
+            "type": "array",
+            "columnName": "cinema_movies"
         },
         "ticketPrice": {
-            "type": "integer"
+            "type": "integer",
+            "columnName": "movies_ticketPrice"
         }
     },
     "required": [
-        "name",
-        "datOfBirth"
+        "name"
     ]
 }

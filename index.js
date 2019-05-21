@@ -3,7 +3,7 @@ const app = express();
 var fs = require('fs');
 var mustache = require('mustache');
 var childProcess = require('child_process');
-
+var sqlite = require("sqlite3");
 var generatedserver = require('./Server/server');
 
 app.use(express.static('public'));
@@ -20,10 +20,21 @@ app.post('/startServer', (req, res) => {
     res.sendStatus(200);
 });
 
-app.post('/generateClassAndDB', (req, res) => {
+app.get('/generateClassAndDB', (req, res) => {
     //generatedserver.generateClasses();
     generatedserver.generateDB();
     res.sendStatus(200);
+});
+
+app.get("/tables",(req,res)=>{
+    var db = new sqlite.Database("publish/Database/project_db.db");
+
+
+    db.serialize(function () {
+        db.all("select name from sqlite_master where type='table'", function (err, tables) {
+            console.log(tables);
+        });
+    });
 });
 
 app.listen(8081, () => {

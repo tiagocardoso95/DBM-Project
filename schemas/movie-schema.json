@@ -3,19 +3,24 @@
     "type": "object",
     "properties": {
         "name": {
-            "type": "string"
+            "type": "string",
+            "columnName": "movie_name"
         },
         "category": {
-            "type": "string"
+            "type": "string",
+            "columnName": "movie_category"
         },
         "rating": {
-            "type": "integer"
+            "type": "integer",
+            "columnName": "movie_rating"
         },
         "cast": {
-            "type": "array"
+            "type": "array",
+            "columnName": "movie_cast"
         },
         "length": {
-            "type": "string"
+            "type": "string",
+            "columnName": "movie_length"
         }
     },
     "required": [

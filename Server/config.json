@@ -26,6 +26,7 @@
         }
     ],
     "dbName": "project_db.db",
+    "schemaFolder": "./schemas",
     "staticFiles": [
         {
             "originalPath": "../sqlitedbm.js",
