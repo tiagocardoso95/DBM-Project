@@ -7,18 +7,18 @@
 
 <body>
     <h3>DBM Project</h3>
-    <form action="/deleteFolders" method="POST">
-        <input type="submit" value="Delete Folders" />
-    </form>
-    <form action="/generateFolders" method="POST">
-        <input type="submit" value="Generate Folders" />
-    </form>
-    <form action="/startServer" method="POST">
-        <input type="submit" value="Start Server" />
-    </form>
-    <form action="/generateClassAndDB" method="POST">
-        <input type="submit" value="Generate Classes and Database" />
-    </form>
+    <button onclick="sendAjxRquest('deleteFolders')">Delete Folders</button>
+    <button onclick="sendAjxRquest('generateFolders')">Generate Folders</button>
+    <button onclick="sendAjxRquest('startServer')">Start Server</button>
+    <button onclick="sendAjxRquest('generateClassAndDB')">Generate Class and BD</button>
 </body>
 
 </html>
+
+<script>
+    function sendAjxRquest(url){
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("POST", "http://localhost:8081/"+url, true);
+        xhttp.send(); 
+    }
+</script>
