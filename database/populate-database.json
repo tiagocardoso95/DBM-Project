@@ -1,0 +1,29 @@
+{
+    "actors": [{
+            "actor_id": "1",
+            "actor_name": "Fernando Mendes",
+            "actor_dateOfBirth": "10/10/1950"
+        },
+        {
+            "actor_id": "2",
+            "actor_name": "José Sócrates",
+            "actor_dateOfBirth": "20/3/1960"
+        },
+        {
+            "actor_id": "3",
+            "actor_name": "Marcelo Rebelo de Sousa",
+            "actor_dateOfBirth": "1/1/1969"
+        },
+        {
+            "actor_id": "4",
+            "actor_name": "Antonio Costa",
+            "actor_dateOfBirth": "6/11/1980"
+        },
+        {
+            "actor_id": "5",
+            "actor_name": "Tiago Gomes",
+            "actor_dateOfBirth": "11/11/1990"
+        }
+    ]
+
+}
