@@ -20,8 +20,18 @@ app.post('/startServer', (req, res) => {
     res.sendStatus(200);
 });
 
-app.get('/generateClassAndDB', (req, res) => {
-    //generatedserver.generateClasses();
+app.post('/deleteFolders', (req, res) => {
+    generatedserver.deleteFolders();
+    res.sendStatus(200);
+});
+
+app.post('/generateFolders', (req, res) => {
+    generatedserver.generateFolders();
+    res.sendStatus(200);
+});
+
+app.post('/generateClassAndDB', (req, res) => {
+    generatedserver.generateClasses();
     generatedserver.generateDB();
     res.sendStatus(200);
 });
