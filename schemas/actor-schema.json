@@ -2,11 +2,17 @@
     "title": "Actor",
     "type": "object",
     "properties": {
-        "name": {
-            "type": "string"
+        "id":{
+          "type": "number",
+          "columnName": "actor_id"  
         },
-        "datOfBirth": {
-            "type": "string"
+        "name": {
+            "type": "string",
+            "columnName": "actor_name"
+        },
+        "dateOfBirth": {
+            "type": "string",
+            "columnName": "actor_dateOfBirth"
         }
     },
     "required": [

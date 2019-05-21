@@ -10,11 +10,12 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "child_process": "^1.0.2",
     "del": "^4.1.1",
     "express": "^4.16.4",
     "mkdirp": "^0.5.1",
     "mustache": "^3.0.1",
     "nodemon": "^1.19.0",
-    "child_process": "^1.0.2"
+    "sqlite3": "^4.0.8"
   }
 }

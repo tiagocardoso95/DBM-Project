@@ -25,7 +25,7 @@
             "path": "../schemas/movie-schema.json"
         }
     ],
-    "dbname": "project_db.db",
+    "dbName": "project_db.db",
     "staticFiles": [
         {
             "originalPath": "../sqlitedbm.js",

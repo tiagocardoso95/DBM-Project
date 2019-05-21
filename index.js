@@ -4,6 +4,8 @@ var fs = require('fs');
 var mustache = require('mustache');
 var childProcess = require('child_process');
 
+var generatedserver = require('./Server/server');
+
 app.use(express.static('public'));
 
 app.post('/startServer', (req, res) => {
@@ -18,6 +20,11 @@ app.post('/startServer', (req, res) => {
     res.sendStatus(200);
 });
 
+app.post('/generateClassAndDB', (req, res) => {
+    //generatedserver.generateClasses();
+    generatedserver.generateDB();
+    res.sendStatus(200);
+});
 
 app.listen(8081, () => {
     console.log("Server started on port 8081!");
