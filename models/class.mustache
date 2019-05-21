@@ -10,7 +10,7 @@ class {{classTitle}}{
     if (this.id){
         database.run("UPDATE {{table}} SET {{{update}}}  WHERE {{primaryKey}} "+"=?",[this ,this.id])
     }else{
-        database.run("INSERT INTO {{table}} ({{columns}}) VALUES ({{values}})",this);
+        database.run("INSERT INTO {{table}} ({{columns}}) VALUES ({{questionMarks}})",this);
     }
 }
 

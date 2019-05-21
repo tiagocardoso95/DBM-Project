@@ -21,7 +21,7 @@ Actor.prototype.save = function(callback){
     if (this.id){
         database.run("UPDATE Actors SET 	actor_name=?,	actor_dateOfBirth=?  WHERE actor_id "+"=?",[this ,this.id])
     }else{
-        database.run("INSERT INTO Actors (	actor_name,	actor_dateOfBirth) VALUES ()",this);
+        database.run("INSERT INTO Actors (	actor_name,	actor_dateOfBirth) VALUES (?,?)",this);
     }
 }
 

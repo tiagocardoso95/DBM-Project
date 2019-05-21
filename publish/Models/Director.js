@@ -22,7 +22,7 @@ Director.prototype.save = function(callback){
     if (this.id){
         database.run("UPDATE Directors SET 	director_name=?,	director_dateOfBirth=?,	director_moviesDirected=?  WHERE director_id "+"=?",[this ,this.id])
     }else{
-        database.run("INSERT INTO Directors (	director_name,	director_dateOfBirth,	director_moviesDirected) VALUES ()",this);
+        database.run("INSERT INTO Directors (	director_name,	director_dateOfBirth,	director_moviesDirected) VALUES (?,?,?)",this);
     }
 }
 

@@ -16,7 +16,7 @@ Category.prototype.save = function(callback){
     if (this.id){
         database.run("UPDATE Categories SET 	category_name=?  WHERE category_id "+"=?",[this ,this.id])
     }else{
-        database.run("INSERT INTO Categories (	category_name) VALUES ()",this);
+        database.run("INSERT INTO Categories (	category_name) VALUES (?)",this);
     }
 }
 

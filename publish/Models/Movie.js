@@ -20,7 +20,7 @@ Movie.prototype.save = function(callback){
     if (this.id){
         database.run("UPDATE Movies SET 	movie_name=?,	movie_category=?,	movie_rating=?,	movie_cast=?,	movie_length=?  WHERE movie_id "+"=?",[this ,this.id])
     }else{
-        database.run("INSERT INTO Movies (	movie_name,	movie_category,	movie_rating,	movie_cast,	movie_length) VALUES ()",this);
+        database.run("INSERT INTO Movies (	movie_name,	movie_category,	movie_rating,	movie_cast,	movie_length) VALUES (?,?,?,?,?)",this);
     }
 }
 

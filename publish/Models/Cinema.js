@@ -26,7 +26,7 @@ Cinema.prototype.save = function(callback){
     if (this.id){
         database.run("UPDATE Cinemas SET 	cinema_name=?,	cinema_movies=?,	movies_ticketPrice=?  WHERE category_id "+"=?",[this ,this.id])
     }else{
-        database.run("INSERT INTO Cinemas (	cinema_name,	cinema_movies,	movies_ticketPrice) VALUES ()",this);
+        database.run("INSERT INTO Cinemas (	cinema_name,	cinema_movies,	movies_ticketPrice) VALUES (?,?,?)",this);
     }
 }
 
