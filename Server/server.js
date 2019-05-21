@@ -5,7 +5,7 @@ var config = require("./config");
 var genClass = require('../models/generate-class');
 var path = require("path");
 var dbGenerator = require('../database/generate-database');
-var actorSchema = require("../schemas/actor-schema.json"); 
+var apiGenerator = require('../api/generate-api');
 
 module.exports = {
     deleteFolders() {
@@ -83,24 +83,32 @@ module.exports = {
         });
 
     },
-    generateDB(){
+    generateDB() {
         //dbGenerator.generate(config.dbName,actorSchema);
 
-        fs.readdir(path.resolve(config.schemaFolder),function(err,fileNames){
-            if(err){
+        fs.readdir(path.resolve(config.schemaFolder), function (err, fileNames) {
+            if (err) {
                 console.log(err);
                 return;
             }
-            fileNames.forEach(function(fileName){
-                var schema = JSON.parse(fs.readFileSync(path.resolve(config.schemaFolder)+"/"+fileName));
-                
-                console.log(schema);
-                
-                dbGenerator.generate(config.dbName,schema);
+            fileNames.forEach(function (fileName) {
+                var schema = JSON.parse(fs.readFileSync(path.resolve(config.schemaFolder) + "/" + fileName));
+                dbGenerator.generate(config.dbName, schema);
             });
-
         });
-    
-        console.log("generated Database: "+ config.dbName);
+        console.log("generated Database: " + config.dbName);
+    },
+    generateAPIs() {
+        fs.readdir(path.resolve(config.schemaFolder), function (err, fileNames) {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            fileNames.forEach(function (fileName) {
+                var schema = JSON.parse(fs.readFileSync(path.resolve(config.schemaFolder) + "/" + fileName));
+                apiGenerator.generateAPI(schema);
+                console.log("API for "+schema.title+" generated!");
+            });
+        });
     }
 }

@@ -36,6 +36,11 @@ app.post('/generateClassAndDB', (req, res) => {
     res.sendStatus(200);
 });
 
+app.post('/generateAPIs', (req, res) => {
+    generatedserver.generateAPIs();
+    res.sendStatus(200);
+});
+
 app.get("/tables",(req,res)=>{
     var db = new sqlite.Database("publish/Database/project_db.db");
 
