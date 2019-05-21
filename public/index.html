@@ -7,11 +7,16 @@
 
 <body>
     <h3>DBM Project</h3>
+    <form action="/deleteFolders" method="POST">
+        <input type="submit" value="Delete Folders" />
+    </form>
+    <form action="/generateFolders" method="POST">
+        <input type="submit" value="Generate Folders" />
+    </form>
     <form action="/startServer" method="POST">
         <input type="submit" value="Start Server" />
     </form>
-
-    <form action="/generateClassAndDB" method="GET">
+    <form action="/generateClassAndDB" method="POST">
         <input type="submit" value="Generate Classes and Database" />
     </form>
 </body>
