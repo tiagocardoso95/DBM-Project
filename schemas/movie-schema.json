@@ -1,7 +1,12 @@
 {
     "title": "Movie",
+    "table": "Movies",
     "type": "object",
     "properties": {
+        "id":{
+            "type": "number",
+            "columnName": "movie_id"  
+          },
         "name": {
             "type": "string",
             "columnName": "movie_name"

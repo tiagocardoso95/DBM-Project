@@ -1,7 +1,12 @@
 {
     "title": "Director",
+    "table": "Directors",
     "type": "object",
     "properties": {
+        "id":{
+            "type": "number",
+            "columnName": "director_id"  
+          },
         "name": {
             "type": "string",
             "columnName": "director_name"

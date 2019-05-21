@@ -1,5 +1,37 @@
+var database = require("../../database/sqlitedbm.js")("{{dbName}}");
+
 class {{classTitle}}{
     constructor({{classProperties}}){
         {{{classConstructor}}}
     }
 }
+
+{{classTitle}}.prototype.save = function(callback){
+    if (this.id){
+        database.run("UPDATE {{table}} SET {{{update}}}  WHERE {{primaryKey}} "+"=?",[this ,this.id])
+    }else{
+        database.run("INSERT INTO {{table}} ({{columns}}) VALUES ({{values}})",this);
+    }
+}
+
+module.exports.all = {{classTitle}}.all = function(callback){
+    database.get("SELECT * FROM {{table}}",[],{{classTitle}},function(rows){
+        callback(rows);
+    });
+}
+
+module.exports.get = {{classTitle}}.get = function(id,callback){
+    database.where("SELECT * FROM {{table}} WHERE {{primaryKey}} "+"=" + id, [], {{classTitle}}, function(rows){
+        callback(rows);
+    });
+}
+
+module.exports.delete = {{classTitle}}.delete = function(id,callback){
+    database.run("DELETE FROM {{table}} WHERE {{primaryKey}}"+"=?", [id]);
+}
+
+module.exports.mappingDBtoObject = {
+    {{{map}}}
+}
+
+module.exports.{{classTitle}};

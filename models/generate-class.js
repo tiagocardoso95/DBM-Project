@@ -1,9 +1,27 @@
 const mustache = require("mustache");
 var fs = require('fs');
+var config = require("../Server/config");
 
 function generateClass(schema) {
     var classProps = Object.keys(schema.properties);
     var requiredProps = schema.required;
+    var columns = "";
+    var update = "";
+    var map = "";
+
+    for(var prop in schema.properties){
+        if(prop ==="id"){
+            map += "\t"+schema.properties.id.columnName+':"id",\n';
+            continue;
+        }
+        map += "\t"+schema.properties[prop].columnName+': "'+prop.toString()+'",\n';
+        columns += "\t"+schema.properties[prop].columnName+",";
+        update += "\t"+schema.properties[prop].columnName+"="+"?,";
+    }
+    columns = columns.substring(0,columns.length-1);
+    update = update.substring(0,update.length-1);
+    map = map.substring(0,map.length-1);
+
     var view = {
         classTitle: schema.title,
         classProperties: classProps.join(),
@@ -16,7 +34,13 @@ function generateClass(schema) {
                     props += "\n\t\tObject.defineProperty(this, \"" + key + "\",{\n\t\t\t enumerable: false \n\t\t});\n";
             });
             return props;
-        }
+        },
+        dbName: config.dbName,
+        table: schema.table,
+        primaryKey: schema.properties.id.columnName,
+        columns: columns,
+        update: update,
+        map: map
     }
     var template = fs.readFileSync("models/class.mustache").toString();
     var output = mustache.render(template, view);
