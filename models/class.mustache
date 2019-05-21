@@ -1,4 +1,4 @@
-var database = require("../../database/sqlitedbm.js")("{{dbName}});
+var database = require("../../database/sqlitedbm.js")("{{dbName}}");
 
 class {{classTitle}}{
     constructor({{classProperties}}){
@@ -6,14 +6,32 @@ class {{classTitle}}{
     }
 }
 
-{{classTitle}}.all = function(callback){
-    database.where("SELECT * FROM {{table}}",[],{{classTitle}},function(rows){
-        console.log(rows);
+{{classTitle}}.prototype.save = function(callback){
+    if (this.id){
+        database.run("UPDATE {{table}} SET {{{update}}}  WHERE {{primaryKey}} "+"=?",[this ,this.id])
+    }else{
+        database.run("INSERT INTO {{table}} ({{columns}}) VALUES ({{values}})",this);
+    }
+}
+
+module.exports.all = {{classTitle}}.all = function(callback){
+    database.get("SELECT * FROM {{table}}",[],{{classTitle}},function(rows){
+        callback(rows);
     });
 }
 
-{{classTitle}}.get = function(id,callback){
+module.exports.get = {{classTitle}}.get = function(id,callback){
     database.where("SELECT * FROM {{table}} WHERE {{primaryKey}} "+"=" + id, [], {{classTitle}}, function(rows){
-        console.log(rows);
+        callback(rows);
     });
 }
+
+module.exports.delete = {{classTitle}}.delete = function(id,callback){
+    database.run("DELETE FROM {{table}} WHERE {{primaryKey}}"+"=?", [id]);
+}
+
+module.exports.mappingDBtoObject = {
+    {{{map}}}
+}
+
+module.exports.{{classTitle}};
