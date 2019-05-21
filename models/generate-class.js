@@ -1,5 +1,6 @@
 const mustache = require("mustache");
 var fs = require('fs');
+var config = require("../Server/config");
 
 function generateClass(schema) {
     var classProps = Object.keys(schema.properties);
@@ -16,7 +17,10 @@ function generateClass(schema) {
                     props += "\n\t\tObject.defineProperty(this, \"" + key + "\",{\n\t\t\t enumerable: false \n\t\t});\n";
             });
             return props;
-        }
+        },
+        dbName: config.dbName,
+        table: schema.table,
+        primaryKey: classProps["id"].columnName
     }
     var template = fs.readFileSync("models/class.mustache").toString();
     var output = mustache.render(template, view);

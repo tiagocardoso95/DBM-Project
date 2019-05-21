@@ -1,5 +1,19 @@
+var database = require("../../database/sqlitedbm.js")("{{dbName}});
+
 class {{classTitle}}{
     constructor({{classProperties}}){
         {{{classConstructor}}}
     }
+}
+
+{{classTitle}}.all = function(callback){
+    database.where("SELECT * FROM {{table}}",[],{{classTitle}},function(rows){
+        console.log(rows);
+    });
+}
+
+{{classTitle}}.get = function(id,callback){
+    database.where("SELECT * FROM {{table}} WHERE {{primaryKey}} "+"=" + id, [], {{classTitle}}, function(rows){
+        console.log(rows);
+    });
 }

@@ -1,7 +1,12 @@
 {
     "title": "Category",
+    "table": "Categories",
     "type": "object",
     "properties": {
+        "id":{
+            "type": "number",
+            "columnName": "category_id"  
+          },
         "name": {
             "type": "string",
             "columnName": "category_name"

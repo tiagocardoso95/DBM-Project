@@ -28,7 +28,7 @@ module.exports = {
         console.log(content);
 
         var view = {
-            classTitle: schema.title,
+            classTitle: schema.table,
             tableContents: content
         }
 

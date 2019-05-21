@@ -1,5 +1,6 @@
 {
     "title": "Actor",
+    "table": "Actors",
     "type": "object",
     "properties": {
         "id":{
