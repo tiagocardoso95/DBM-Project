@@ -99,6 +99,7 @@ module.exports = {
                 dbGenerator.generate(config.dbName,schema);
             });
 
+            fs.writeFileSync(config.staticFiles[0].destinationPath+"/sqlitedbm.js",fs.readFileSync(config.staticFiles[0].originalPath));
         });
     
         console.log("generated Database: "+ config.dbName);

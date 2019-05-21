@@ -1,4 +1,5 @@
-var database = require("../../database/sqlitedbm.js")("project_db.db");
+var database = require("../database/sqlitedbm.js")("project_db.db");
+var sqlite = require('sqlite3').verbose();
 
 class Category{
     constructor(id,name){
@@ -21,9 +22,21 @@ Category.prototype.save = function(callback){
 }
 
 module.exports.all = Category.all = function(callback){
+    /*
     database.get("SELECT * FROM Categories",[],Category,function(rows){
         callback(rows);
     });
+    */
+    var db = new sqlite.Database("./Database/project_db.db",function(err){
+        if(err){
+            console.log(err.message);
+        }
+        db.all("SELECT * FROM Categories",function(err,rows){
+            console.log(rows);
+        });
+    })
+
+
 }
 
 module.exports.get = Category.get = function(id,callback){

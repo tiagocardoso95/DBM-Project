@@ -1,4 +1,5 @@
-var database = require("../../database/sqlitedbm.js")("project_db.db");
+var database = require("../database/sqlitedbm.js")("project_db.db");
+var sqlite = require('sqlite3').verbose();
 
 class Cinema{
     constructor(id,name,movies,ticketPrice){
@@ -31,9 +32,21 @@ Cinema.prototype.save = function(callback){
 }
 
 module.exports.all = Cinema.all = function(callback){
+    /*
     database.get("SELECT * FROM Cinemas",[],Cinema,function(rows){
         callback(rows);
     });
+    */
+    var db = new sqlite.Database("./Database/project_db.db",function(err){
+        if(err){
+            console.log(err.message);
+        }
+        db.all("SELECT * FROM Cinemas",function(err,rows){
+            console.log(rows);
+        });
+    })
+
+
 }
 
 module.exports.get = Cinema.get = function(id,callback){

@@ -1,4 +1,5 @@
-var database = require("../../database/sqlitedbm.js")("project_db.db");
+var database = require("../database/sqlitedbm.js")("project_db.db");
+var sqlite = require('sqlite3').verbose();
 
 class Actor{
     constructor(id,name,dateOfBirth){
@@ -26,9 +27,21 @@ Actor.prototype.save = function(callback){
 }
 
 module.exports.all = Actor.all = function(callback){
+    /*
     database.get("SELECT * FROM Actors",[],Actor,function(rows){
         callback(rows);
     });
+    */
+    var db = new sqlite.Database(".",function(err){
+        if(err){
+            console.log(err.message);
+        }
+        db.all("SELECT * FROM Actors",function(err,rows){
+            console.log(rows);
+        });
+    })
+
+
 }
 
 module.exports.get = Actor.get = function(id,callback){

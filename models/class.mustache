@@ -1,4 +1,4 @@
-var database = require("../../database/sqlitedbm.js")("{{dbName}}");
+var database = require("../database/sqlitedbm.js")("{{{dbName}}}");
 
 class {{classTitle}}{
     constructor({{classProperties}}){
@@ -15,7 +15,7 @@ class {{classTitle}}{
 }
 
 module.exports.all = {{classTitle}}.all = function(callback){
-    database.get("SELECT * FROM {{table}}",[],{{classTitle}},function(rows){
+    database.get("SELECT * FROM {{table}}",[],{{{classTitle}}},function(rows){
         callback(rows);
     });
 }

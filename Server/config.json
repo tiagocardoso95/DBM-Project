@@ -7,8 +7,8 @@
     "schemaFolder": "./schemas",
     "staticFiles": [
         {
-            "originalPath": "../sqlitedbm.js",
-            "destinationPath": "../publish/Database"
+            "originalPath": "./database/sqlitedbm.js",
+            "destinationPath": "./publish/Database"
         }
     ]
 }

@@ -1,4 +1,5 @@
-var database = require("../../database/sqlitedbm.js")("project_db.db");
+var database = require("../database/sqlitedbm.js")("project_db.db");
+var sqlite = require('sqlite3').verbose();
 
 class Director{
     constructor(id,name,dateOfBirth,moviesDirected){
@@ -27,9 +28,21 @@ Director.prototype.save = function(callback){
 }
 
 module.exports.all = Director.all = function(callback){
+    /*
     database.get("SELECT * FROM Directors",[],Director,function(rows){
         callback(rows);
     });
+    */
+    var db = new sqlite.Database("./Database/project_db.db",function(err){
+        if(err){
+            console.log(err.message);
+        }
+        db.all("SELECT * FROM Directors",function(err,rows){
+            console.log(rows);
+        });
+    })
+
+
 }
 
 module.exports.get = Director.get = function(id,callback){

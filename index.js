@@ -30,6 +30,20 @@ app.post('/generateFolders', (req, res) => {
     res.sendStatus(200);
 });
 
+app.get("/insertActor",(req,res) =>{
+    var db = new sqlite.Database("publish/Database/project_db.db");
+    db.run("INSERT INTO Actors (actor_name,actor_dateOfBirth) VALUES (?,?)",['teste1','data-anos']);
+    res.send("OK");
+});
+
+app.get("/Actors",(req,res) =>{
+    var db = new sqlite.Database("publish/Database/project_db.db");
+    db.all("SELECT * FROM Actors",function(err,rows){
+        console.log(rows);
+    });
+    res.send("OK");
+});
+
 app.post('/generateClassAndDB', (req, res) => {
     generatedserver.generateClasses();
     generatedserver.generateDB();

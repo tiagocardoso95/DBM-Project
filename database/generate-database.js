@@ -41,5 +41,15 @@ module.exports = {
                 return console.error(err.message);
             }
         });
+    },
+    populate(dbName,table,data){
+        //open db connection
+        var db = new sqlite3.Database('./publish/Database/'+dbName,function(err){
+            if(err){
+                console.log(err.message);
+            }
+        });
+
+        db.run("INSERT INTO Actors (actor_name,actor_dateOfBirth) VALUES (?,?)",['teste1','data-anos']);
     }
 }

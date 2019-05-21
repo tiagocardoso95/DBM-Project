@@ -16,6 +16,6 @@ app.get("/Actors",function (req,res){
     });
 });
 
-app.listen({{port}}, () => {
-    console.log("Generated Server running on port {{port}}!!");
+app.listen(8080, () => {
+    console.log("Generated Server running on port 8080!!");
 });

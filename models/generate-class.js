@@ -1,7 +1,7 @@
 const mustache = require("mustache");
 var fs = require('fs');
+var path = require("path");
 var config = require("../Server/config");
-
 function generateClass(schema) {
     var classProps = Object.keys(schema.properties);
     var requiredProps = schema.required;
@@ -38,7 +38,7 @@ function generateClass(schema) {
             });
             return props;
         },
-        dbName: config.dbName,
+        dbName: "../Database/"+config.dbName,
         table: schema.table,
         primaryKey: schema.properties.id.columnName,
         columns: columns,
