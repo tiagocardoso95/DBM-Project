@@ -20,9 +20,12 @@ module.exports = {
 
         var content = "";
         for(var prop in classProps){
-            console.log(prop);
+            content += classProps[prop].columnName + " "+convertType(classProps[prop].type)+" ";
+            if(prop === "id"){
+                content+= "PRIMARY KEY";
+            }
             
-            content += classProps[prop].columnName + " "+classProps[prop].type+","
+            content +=",";
         }
         content = content.substring(0,content.length-1);
         console.log(content);
@@ -51,5 +54,17 @@ module.exports = {
         });
 
         db.run("INSERT INTO Actors (actor_name,actor_dateOfBirth) VALUES (?,?)",['teste1','data-anos']);
+    }
+}
+
+function convertType(type){
+    switch (type) {
+        case "number":
+            return "INTEGER"
+            break;
+        case "string":
+            return "TEXT"
+        default:
+            return "TEXT";
     }
 }

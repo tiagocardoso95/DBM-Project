@@ -1,12 +1,11 @@
-var database = require("../database/sqlitedbm.js")("project_db.db");
-var sqlite = require('sqlite3').verbose();
+var database = require("../database/sqlitedbm.js")("../publish/Database/project_db.db");
 
 class Movie{
     constructor(id,name,category,rating,cast,length){
         
 		this.id=id;
 		Object.defineProperty(this, "id",{
-			 enumerable: false 
+			 enumerable: true 
 		});
 
 		this.name=name;
@@ -26,21 +25,9 @@ Movie.prototype.save = function(callback){
 }
 
 module.exports.all = Movie.all = function(callback){
-    /*
     database.get("SELECT * FROM Movies",[],Movie,function(rows){
         callback(rows);
     });
-    */
-    var db = new sqlite.Database("./Database/project_db.db",function(err){
-        if(err){
-            console.log(err.message);
-        }
-        db.all("SELECT * FROM Movies",function(err,rows){
-            console.log(rows);
-        });
-    })
-
-
 }
 
 module.exports.get = Movie.get = function(id,callback){
@@ -53,7 +40,7 @@ module.exports.delete = Movie.delete = function(id,callback){
     database.run("DELETE FROM Movies WHERE movie_id"+"=?", [id]);
 }
 
-module.exports.mappingDBtoObject = {
+module.exports.mappingDBtoObject = Movie.mappingDBtoObject = {
     	movie_id:"id",
 	movie_name: "name",
 	movie_category: "category",

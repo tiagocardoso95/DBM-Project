@@ -1,23 +1,22 @@
-var database = require("../database/sqlitedbm.js")("project_db.db");
-var sqlite = require('sqlite3').verbose();
+var database = require("../database/sqlitedbm.js")("../publish/Database/project_db.db");
 
 class Cinema{
     constructor(id,name,movies,ticketPrice){
         
 		this.id=id;
 		Object.defineProperty(this, "id",{
-			 enumerable: false 
+			 enumerable: true 
 		});
 
 		this.name=name;
 		this.movies=movies;
 		Object.defineProperty(this, "movies",{
-			 enumerable: false 
+			 enumerable: true 
 		});
 
 		this.ticketPrice=ticketPrice;
 		Object.defineProperty(this, "ticketPrice",{
-			 enumerable: false 
+			 enumerable: true 
 		});
 
     }
@@ -32,21 +31,9 @@ Cinema.prototype.save = function(callback){
 }
 
 module.exports.all = Cinema.all = function(callback){
-    /*
     database.get("SELECT * FROM Cinemas",[],Cinema,function(rows){
         callback(rows);
     });
-    */
-    var db = new sqlite.Database("./Database/project_db.db",function(err){
-        if(err){
-            console.log(err.message);
-        }
-        db.all("SELECT * FROM Cinemas",function(err,rows){
-            console.log(rows);
-        });
-    })
-
-
 }
 
 module.exports.get = Cinema.get = function(id,callback){
@@ -59,7 +46,7 @@ module.exports.delete = Cinema.delete = function(id,callback){
     database.run("DELETE FROM Cinemas WHERE category_id"+"=?", [id]);
 }
 
-module.exports.mappingDBtoObject = {
+module.exports.mappingDBtoObject = Cinema.mappingDBtoObject = {
     	category_id:"id",
 	cinema_name: "name",
 	cinema_movies: "movies",

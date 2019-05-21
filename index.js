@@ -6,6 +6,8 @@ var childProcess = require('child_process');
 var sqlite = require("sqlite3");
 var generatedserver = require('./Server/server');
 
+var Actor = require("./models/Actor");
+
 app.use(express.static('public'));
 
 app.post('/startServer', (req, res) => {
@@ -42,6 +44,12 @@ app.get("/Actors",(req,res) =>{
         console.log(rows);
     });
     res.send("OK");
+});
+
+app.get("/ActorsC",(req,res) =>{
+    Actor.all(function(rows){
+        console.log(rows);
+    });
 });
 
 app.post('/generateClassAndDB', (req, res) => {

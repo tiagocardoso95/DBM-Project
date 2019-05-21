@@ -1,18 +1,17 @@
-var database = require("../database/sqlitedbm.js")("project_db.db");
-var sqlite = require('sqlite3').verbose();
+var database = require("../database/sqlitedbm.js")("../publish/Database/project_db.db");
 
 class Director{
     constructor(id,name,dateOfBirth,moviesDirected){
         
 		this.id=id;
 		Object.defineProperty(this, "id",{
-			 enumerable: false 
+			 enumerable: true 
 		});
 
 		this.name=name;
 		this.dateOfBirth=dateOfBirth;
 		Object.defineProperty(this, "dateOfBirth",{
-			 enumerable: false 
+			 enumerable: true 
 		});
 
 		this.moviesDirected=moviesDirected;
@@ -28,21 +27,9 @@ Director.prototype.save = function(callback){
 }
 
 module.exports.all = Director.all = function(callback){
-    /*
     database.get("SELECT * FROM Directors",[],Director,function(rows){
         callback(rows);
     });
-    */
-    var db = new sqlite.Database("./Database/project_db.db",function(err){
-        if(err){
-            console.log(err.message);
-        }
-        db.all("SELECT * FROM Directors",function(err,rows){
-            console.log(rows);
-        });
-    })
-
-
 }
 
 module.exports.get = Director.get = function(id,callback){
@@ -55,7 +42,7 @@ module.exports.delete = Director.delete = function(id,callback){
     database.run("DELETE FROM Directors WHERE director_id"+"=?", [id]);
 }
 
-module.exports.mappingDBtoObject = {
+module.exports.mappingDBtoObject = Director.mappingDBtoObject = {
     	director_id:"id",
 	director_name: "name",
 	director_dateOfBirth: "dateOfBirth",

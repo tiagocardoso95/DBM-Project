@@ -12,6 +12,7 @@ function mapping(object, type, isenum) {
         var obj = new type(); //Inicializar um objeto do tipo "type"
         Object.keys(object).forEach(function (dbProp) {
             var objProp = dbProp;
+            
             if (type.mappingDBtoObject) //Se a classe possuir um objeto de mapeamento vai se buscar esse valor para a coluna que foi retornada. Porque as propriedades dos objetos podem ter nomes diferentes da mesma coluna na tabela
                 var objProp = type.mappingDBtoObject[dbProp];
             if (obj.hasOwnProperty(objProp)) { //Se o objeto possuir o atributo que se estÃ¡ a verificar entÃ£o recebe o valor retornado da query da base de dados

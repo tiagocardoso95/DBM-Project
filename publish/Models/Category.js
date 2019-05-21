@@ -1,12 +1,11 @@
-var database = require("../database/sqlitedbm.js")("project_db.db");
-var sqlite = require('sqlite3').verbose();
+var database = require("../database/sqlitedbm.js")("../publish/Database/project_db.db");
 
 class Category{
     constructor(id,name){
         
 		this.id=id;
 		Object.defineProperty(this, "id",{
-			 enumerable: false 
+			 enumerable: true 
 		});
 
 		this.name=name;
@@ -22,21 +21,9 @@ Category.prototype.save = function(callback){
 }
 
 module.exports.all = Category.all = function(callback){
-    /*
     database.get("SELECT * FROM Categories",[],Category,function(rows){
         callback(rows);
     });
-    */
-    var db = new sqlite.Database("./Database/project_db.db",function(err){
-        if(err){
-            console.log(err.message);
-        }
-        db.all("SELECT * FROM Categories",function(err,rows){
-            console.log(rows);
-        });
-    })
-
-
 }
 
 module.exports.get = Category.get = function(id,callback){
@@ -49,7 +36,7 @@ module.exports.delete = Category.delete = function(id,callback){
     database.run("DELETE FROM Categories WHERE category_id"+"=?", [id]);
 }
 
-module.exports.mappingDBtoObject = {
+module.exports.mappingDBtoObject = Category.mappingDBtoObject = {
     	category_id:"id",
 	category_name: "name",
 }

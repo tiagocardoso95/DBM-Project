@@ -30,7 +30,7 @@ module.exports.delete = {{classTitle}}.delete = function(id,callback){
     database.run("DELETE FROM {{table}} WHERE {{primaryKey}}"+"=?", [id]);
 }
 
-module.exports.mappingDBtoObject = {
+module.exports.mappingDBtoObject = {{classTitle}}.mappingDBtoObject = {
     {{{map}}}
 }
 

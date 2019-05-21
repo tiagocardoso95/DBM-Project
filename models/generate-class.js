@@ -34,11 +34,11 @@ function generateClass(schema) {
                 props += "\n\t\tthis." + key + "=" + key + ";";
 
                 if (!requiredProps.includes(key))
-                    props += "\n\t\tObject.defineProperty(this, \"" + key + "\",{\n\t\t\t enumerable: false \n\t\t});\n";
+                    props += "\n\t\tObject.defineProperty(this, \"" + key + "\",{\n\t\t\t enumerable: true \n\t\t});\n";
             });
             return props;
         },
-        dbName: "../Database/"+config.dbName,
+        dbName: "../publish/Database/"+config.dbName,
         table: schema.table,
         primaryKey: schema.properties.id.columnName,
         columns: columns,
