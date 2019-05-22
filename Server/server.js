@@ -84,8 +84,6 @@ module.exports = {
 
     },
     generateDB() {
-        //dbGenerator.generate(config.dbName,actorSchema);
-
         fs.readdir(path.resolve(config.schemaFolder), function (err, fileNames) {
             if (err) {
                 console.log(err);

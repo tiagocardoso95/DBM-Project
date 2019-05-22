@@ -5,8 +5,7 @@ var mustache = require('mustache');
 var childProcess = require('child_process');
 var sqlite = require("sqlite3");
 var generatedserver = require('./Server/server');
-
-var Actor = require("./models/Actor");
+var path = require('path');
 
 app.use(express.static('public'));
 
@@ -14,10 +13,31 @@ app.post('/startServer', (req, res) => {
     var config = JSON.parse(fs.readFileSync('./Server/config.json'));
     var template = fs.readFileSync('./Server/server.mustache').toString();
 
-    var output = mustache.render(template, (config));
+    fs.readdir(path.resolve(config.schemaFolder), function (err, fileNames) {
+        if (err) {
+            console.log(err);
+            return;
+        }
 
-    fs.writeFileSync('./publish/index.js', output);
+        var constsRouting = "";
+        var usingRouting = "";
+    
+        fileNames.forEach(function (fileName) {
+            var schema = JSON.parse(fs.readFileSync(path.resolve(config.schemaFolder) + "/" + fileName));
+            constsRouting += "const " + schema.title + "_routing = require('./Controllers/" + schema.title + "-api.js');\n";
+            usingRouting += "app.use('/api'," + schema.title + "_routing);\n";
+        });
 
+        var view = {
+            port: config.port,
+            routing_consts: constsRouting,
+            routing_using: usingRouting,
+        }
+
+        var output = mustache.render(template, view);
+
+        fs.writeFileSync('./publish/index.js', output);
+    });
     childProcess.fork('./publish/index.js');
     res.sendStatus(200);
 });
@@ -32,25 +52,20 @@ app.post('/generateFolders', (req, res) => {
     res.sendStatus(200);
 });
 
-app.get("/insertActor",(req,res) =>{
+app.get("/insertActor", (req, res) => {
     var db = new sqlite.Database("publish/Database/project_db.db");
-    db.run("INSERT INTO Actors (actor_name,actor_dateOfBirth) VALUES (?,?)",['teste1','data-anos']);
+    db.run("INSERT INTO Actors (actor_name,actor_dateOfBirth) VALUES (?,?)", ['teste1', 'data-anos']);
     res.send("OK");
 });
 
-app.get("/Actors",(req,res) =>{
+app.get("/Actors", (req, res) => {
     var db = new sqlite.Database("publish/Database/project_db.db");
-    db.all("SELECT * FROM Actors",function(err,rows){
+    db.all("SELECT * FROM Actors", function (err, rows) {
         console.log(rows);
     });
     res.send("OK");
 });
 
-app.get("/ActorsC",(req,res) =>{
-    Actor.delete(1,function(rows){
-        console.log(rows);
-    });
-});
 
 app.post('/generateClassAndDB', (req, res) => {
     generatedserver.generateClasses();
@@ -63,10 +78,8 @@ app.post('/generateAPIs', (req, res) => {
     res.sendStatus(200);
 });
 
-app.get("/tables",(req,res)=>{
+app.get("/tables", (req, res) => {
     var db = new sqlite.Database("publish/Database/project_db.db");
-
-
     db.serialize(function () {
         db.all("select name from sqlite_master where type='table'", function (err, tables) {
             console.log(tables);

@@ -12,6 +12,8 @@
             "columnName": "category_name"
         }
     },
+    "propsPost": "id,name",
+    "propsPut": "name",
     "required": [
         "name"
     ]

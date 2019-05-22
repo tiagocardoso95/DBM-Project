@@ -4,7 +4,9 @@ var fs = require("fs");
 function generateAPI(schema){
 
     var view = {
-        schemaName: schema.title
+        schemaName: schema.title,
+        schemaPropsPost: schema.propsPost,
+        schemaPropsPut: schema.propsPut,
     }
 
     var template = fs.readFileSync("api/api.mustache").toString();

@@ -3,5 +3,43 @@ var router = express.Router();
 
 var {{schemaName}} = require('../Models/{{schemaName}}.js');
 
+router.get('/{{schemaName}}', function(req, res){
+    {{schemaName}}.all(function (rows){
+        res.json(rows);
+    });
+    res.sendStatus(200);
+});
+
+router.get('/{{schemaName}}/:id', function(req, res){
+    {{schemaName}}.get(req.params.id, function(rows){
+        res.json(rows);
+    }); 
+    res.sendStatus(200);   
+});
+
+router.post('/{{schemaName}}', function(req, res){
+    const { {{schemaPropsPost}} } = req.body;
+    var newData = new {{schemaName}}({{schemaPropsPost}});
+        newData.save(function(){
+        console.log("Data Inserted!");
+    });
+    res.sendStatus(200);
+});
+
+router.put('/{{schemaName}}/:id', function(req, res){
+    const { {{schemaPropsPut}} } = req.body;
+    var newData = new {{schemaName}}(req.params.id,{{schemaPropsPut}});
+        newData.save(function(){
+        console.log("Data Updated!");
+    });
+    res.sendStatus(200);
+});
+
+router.delete('/{{schemaName}}/:id', function(req, res){
+    {{schemaName}}.delete(req.params.id, function(rows){
+        res.json("Deleted!");
+    });
+    res.sendStatus(200);  
+});
 
 module.exports = router;

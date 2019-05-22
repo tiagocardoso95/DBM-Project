@@ -16,6 +16,8 @@
             "columnName": "actor_dateOfBirth"
         }
     },
+    "propsPost": "id,name,dateOfBirth",
+    "propsPut": "name,dateOfBirth",
     "required": [
         "name",
         "datOfBirth"

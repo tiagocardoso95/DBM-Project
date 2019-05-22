@@ -20,6 +20,8 @@
             "columnName": "director_moviesDirected"
         }
     },
+    "propsPost": "id,name,dateOfBirth,moviesDirected",
+    "propsPut": "name,dateOfBirth,moviesDirected",
     "required": [
         "name",
         "moviesDirected"

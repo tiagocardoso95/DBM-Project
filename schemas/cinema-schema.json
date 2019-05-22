@@ -20,6 +20,8 @@
             "columnName": "movies_ticketPrice"
         }
     },
+    "propsPost": "id,name,movies,ticketPrice",
+    "propsPut": "name,movies,ticketPrice",
     "required": [
         "name"
     ]

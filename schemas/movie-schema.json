@@ -28,6 +28,8 @@
             "columnName": "movie_length"
         }
     },
+    "propsPost": "id,name,category,rating,cast,length",
+    "propsPut": "name,category,rating,cast,length",
     "required": [
         "name",
         "category",
