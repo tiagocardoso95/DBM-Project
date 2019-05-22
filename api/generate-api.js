@@ -5,8 +5,7 @@ function generateAPI(schema){
 
     var view = {
         schemaName: schema.title,
-        schemaPropsPost: schema.propsPost,
-        schemaPropsPut: schema.propsPut,
+        schemaProps: schema.props,
     }
 
     var template = fs.readFileSync("api/api.mustache").toString();

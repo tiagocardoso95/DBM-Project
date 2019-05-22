@@ -7,19 +7,17 @@ router.get('/{{schemaName}}', function(req, res){
     {{schemaName}}.all(function (rows){
         res.json(rows);
     });
-    res.sendStatus(200);
 });
 
 router.get('/{{schemaName}}/:id', function(req, res){
     {{schemaName}}.get(req.params.id, function(rows){
         res.json(rows);
     }); 
-    res.sendStatus(200);   
 });
 
 router.post('/{{schemaName}}', function(req, res){
-    const { {{schemaPropsPost}} } = req.body;
-    var newData = new {{schemaName}}({{schemaPropsPost}});
+    const { {{schemaProps}} } = req.body;
+    var newData = new {{schemaName}}({{schemaProps}});
         newData.save(function(){
         console.log("Data Inserted!");
     });
@@ -27,8 +25,8 @@ router.post('/{{schemaName}}', function(req, res){
 });
 
 router.put('/{{schemaName}}/:id', function(req, res){
-    const { {{schemaPropsPut}} } = req.body;
-    var newData = new {{schemaName}}(req.params.id,{{schemaPropsPut}});
+    const { {{schemaProps}} } = req.body;
+    var newData = new {{schemaName}}(req.params.id,{{schemaProps}});
         newData.save(function(){
         console.log("Data Updated!");
     });
@@ -37,7 +35,7 @@ router.put('/{{schemaName}}/:id', function(req, res){
 
 router.delete('/{{schemaName}}/:id', function(req, res){
     {{schemaName}}.delete(req.params.id, function(rows){
-        res.json("Deleted!");
+        console.log("Data Deleted!");
     });
     res.sendStatus(200);  
 });

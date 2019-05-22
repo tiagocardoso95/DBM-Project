@@ -110,5 +110,19 @@ module.exports = {
 
             fs.writeFileSync(config.staticFiles[0].destinationPath+"/sqlitedbm.js",fs.readFileSync(config.staticFiles[0].originalPath));
         });
+    },
+    populateGeneratedBD(){
+        var db = require("../publish/Database/sqlitedbm")("project_db.db");
+        var populate = require("../database/populate-database.json");
+        var data = JSON.parse(JSON.stringify(populate));
+        var actors = data.actors;
+
+        for(var i=0; i<actors.length; i++){
+            db.run("INSERT INTO Actors(actor_name,actor_dateOfBirth) VALUES (?,?)",[actors[i].actor_name,actors[i].actor_dateOfBirth], function(err){
+                if (err) {
+                    return;
+                  }
+            });
+        }
     }
 }

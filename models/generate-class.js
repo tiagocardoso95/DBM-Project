@@ -38,7 +38,7 @@ function generateClass(schema) {
             });
             return props;
         },
-        dbName: "../publish/Database/"+config.dbName,
+        dbName: "../Database/"+config.dbName,
         table: schema.table,
         primaryKey: schema.properties.id.columnName,
         columns: columns,
