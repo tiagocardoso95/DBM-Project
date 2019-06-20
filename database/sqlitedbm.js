@@ -47,6 +47,16 @@ module.exports = function (dbpath) {
             });
             db.close();
         },
+		all: function (statement, params, type, callback) {
+            var db = new sqlite.Database(__dirname+"\\"+dbpath);
+            db.all(statement, params, function (err, rows) {
+                rows = rows.map(function (object) {
+                    return mapping(object, type);
+                });
+                callback(rows);
+            });
+            db.close();
+        },
         run: function (statement, params, callback) {
             var db = new sqlite.Database(__dirname+"\\"+dbpath);
             db.run(statement, params, function (err) {

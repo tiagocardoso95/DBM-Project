@@ -19,6 +19,6 @@
     "props": "name,dateOfBirth",
     "required": [
         "name",
-        "datOfBirth"
+        "dateOfBirth"
     ]
 }

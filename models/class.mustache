@@ -15,7 +15,7 @@ class {{classTitle}}{
 }
 
 module.exports.all = {{classTitle}}.all = function(callback){
-    database.get("SELECT * FROM {{table}}",[],{{{classTitle}}},function(rows){
+    database.all("SELECT * FROM {{table}}",[],{{{classTitle}}},function(rows){
         callback(rows);
     });
 }
