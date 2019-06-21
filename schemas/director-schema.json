@@ -14,15 +14,11 @@
         "dateOfBirth": {
             "type": "string",
             "columnName": "director_dateOfBirth"
-        },  
-        "moviesDirected": {
-            "type": "array",
-            "columnName": "director_moviesDirected"
         }
     },
-    "props": "name,dateOfBirth,moviesDirected",
+    "props": "name,dateOfBirth",
     "required": [
         "name",
-        "moviesDirected"
+        "dateOfBirth"
     ]
 }

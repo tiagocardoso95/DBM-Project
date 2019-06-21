@@ -96,6 +96,17 @@ module.exports = {
         });
         console.log("generated Database: " + config.dbName);
     },
+    generateRelationships() {
+        fs.readdir(path.resolve(config.schemaFolder), function (err, fileNames) {
+            fileNames.forEach(function (fileName) {
+                var schema = JSON.parse(fs.readFileSync(path.resolve(config.schemaFolder) + "/" + fileName));
+                if (schema.references) {
+                    dbGenerator.generateRelationships(config.dbName, schema);
+                }
+            });
+        });
+        console.log("Relationships Created!");
+    },
     generateAPIs() {
         fs.readdir(path.resolve(config.schemaFolder), function (err, fileNames) {
             if (err) {

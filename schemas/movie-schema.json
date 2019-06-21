@@ -16,12 +16,8 @@
             "columnName": "movie_category"
         },
         "rating": {
-            "type": "integer",
+            "type": "number",
             "columnName": "movie_rating"
-        },
-        "cast": {
-            "type": "array",
-            "columnName": "movie_cast"
         },
         "length": {
             "type": "string",
@@ -33,7 +29,22 @@
         "name",
         "category",
         "rating",
-        "cast",
         "length"
-    ]
+    ],
+    "references": [{
+        "model": "Category",
+        "relation": "1-M",
+        "columnName": "category_id",
+        "tableName": "Categories"
+    },{
+        "model": "Director",
+        "relation": "M-M",
+        "columnName": "director_id",
+        "tableName": "Directors" 
+    },{
+        "model": "Actor",
+        "relation": "M-M",
+        "columnName": "actor_id",
+        "tableName": "Actors"
+    }]
 }

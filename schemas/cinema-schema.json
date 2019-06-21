@@ -11,10 +11,6 @@
             "type": "string",
             "columnName": "cinema_name"
         },
-        "movies": {
-            "type": "array",
-            "columnName": "cinema_movies"
-        },
         "ticketPrice": {
             "type": "integer",
             "columnName": "movies_ticketPrice"
@@ -23,5 +19,11 @@
     "props": "name,movies,ticketPrice",
     "required": [
         "name"
-    ]
+    ],
+    "references": [{
+        "model": "Movie",
+        "relation": "M-M",
+        "columnName": "movie_id",
+        "tableName": "Movies"
+    }]
 }

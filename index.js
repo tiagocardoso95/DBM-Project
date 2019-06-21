@@ -59,6 +59,11 @@ app.post('/generateClassAndDB', (req, res) => {
     res.sendStatus(200);
 });
 
+app.post('/generateDBRelationships', (req, res) => {
+    generatedserver.generateRelationships();
+    res.sendStatus(200);
+});
+
 app.post('/generateAPIs', (req, res) => {
     generatedserver.generateAPIs();
     res.sendStatus(200);
