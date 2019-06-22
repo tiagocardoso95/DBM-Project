@@ -2,22 +2,34 @@
 <html>
 
 <head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <title>DBM Projeto</title>
 </head>
 
 <body>
     <h3>DBM Project</h3>
-    <button onclick="sendAjxRquest('deleteFolders')">Delete Folders</button>
-    <button onclick="sendAjxRquest('startServer')">Start Generated Server</button>
+    <button onclick="sendAjxRquest()">Start Generated Server</button>
     
 </body>
 
 </html>
 
 <script>
-    function sendAjxRquest(url){
-        var xhttp = new XMLHttpRequest();
-        xhttp.open("POST", "http://localhost:8081/"+url, true);
-        xhttp.send(); 
+    //TODO REMAKE THIS
+    function sendAjxRquest(){
+        $.post("http://localhost:8081/deleteFolders", function(data) {
+            $.post("http://localhost:8081/generateFolders", function (data) {
+                $.post("http://localhost:8081/generateClassAndDB", function (data) {
+                    $.post("http://localhost:8081/generateDBRelationships", function (data) {
+                        $.post("http://localhost:8081/generateAPIs", function (data) {
+                            $.post("http://localhost:8081/generateBackOffice", function (data) {
+                                $.post("http://localhost:8081/startServer", function (data) {
+                                });
+                            });
+                        });
+                    })
+                });
+            });
+        });
     }
 </script>

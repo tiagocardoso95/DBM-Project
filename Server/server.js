@@ -123,7 +123,7 @@ module.exports = {
             fs.writeFileSync(config.staticFiles[1].destinationPath + "/list.mustache", fs.readFileSync(config.staticFiles[1].originalPath));
         });
     },
-    genereateBackOffice(){
+    generateBackOffice(){
         fs.readdir(path.resolve(config.schemaFolder), function (err, fileNames) {
             if (err) {
                 console.log(err);
