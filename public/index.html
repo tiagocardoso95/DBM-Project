@@ -9,27 +9,13 @@
 <body>
     <h3>DBM Project</h3>
     <button onclick="sendAjxRquest()">Start Generated Server</button>
-    
 </body>
 
 </html>
 
 <script>
-    //TODO REMAKE THIS
     function sendAjxRquest(){
-        $.post("http://localhost:8081/deleteFolders", function(data) {
-            $.post("http://localhost:8081/generateFolders", function (data) {
-                $.post("http://localhost:8081/generateClassAndDB", function (data) {
-                    $.post("http://localhost:8081/generateDBRelationships", function (data) {
-                        $.post("http://localhost:8081/generateAPIs", function (data) {
-                            $.post("http://localhost:8081/generateBackOffice", function (data) {
-                                $.post("http://localhost:8081/startServer", function (data) {
-                                });
-                            });
-                        });
-                    })
-                });
-            });
+        $.post("http://localhost:8081/startServer", function(data) {
         });
     }
 </script>

@@ -6,10 +6,20 @@ var childProcess = require('child_process');
 var sqlite = require("sqlite3");
 var generatedserver = require('./Server/server');
 var path = require('path');
+var async = require('async');
 
 app.use(express.static('public'));
 
 app.post('/startServer', (req, res) => {
+    startGeneration();
+    res.sendStatus(200);
+});
+
+app.listen(8081, () => {
+    console.log("Server started on port 8081!");
+});
+
+function startUpGeneratedServer() {
     var config = JSON.parse(fs.readFileSync('./Server/config.json'));
     var template = fs.readFileSync('./Server/server.mustache').toString();
     fs.readdir(path.resolve(config.schemaFolder), function (err, fileNames) {
@@ -45,40 +55,57 @@ app.post('/startServer', (req, res) => {
     });
     childProcess.fork('./publish/index.js');
     generatedserver.populateGeneratedBD();
-    res.sendStatus(200);
-});
+}
 
-app.post('/deleteFolders', (req, res) => {
-    generatedserver.deleteFolders();
-    res.sendStatus(200);
-});
+function startGeneration() {
+    console.log("Generation started...")
+    async.parallel({
+            deleteFolders: function (callback) {
+                setTimeout(async () => {
+                    await generatedserver.deleteFolders();
+                    callback(null);
+                },500);
+            },
+            generateFolders: function (callback) {
+                setTimeout(async () => {
+                    await generatedserver.generateFolders();
+                    callback(null);
+                },1000);
+            },
+            generateClassAndDB: function (callback) {
+                setTimeout(async () => {
+                    await generatedserver.generateClasses();
+                    await generatedserver.generateDB();
+                    callback(null);
+                },1500);
+            },
+            generateDBRelationships: function (callback) {
+                setTimeout(async () => {
+                    await generatedserver.generateRelationships();
+                    callback(null);
+                },2500);
+            },
+            generateAPIS: function (callback) {
+                setTimeout(async () => {
+                    await generatedserver.generateAPIs();
+                    callback(null);
+                },3500);
+            },
+            genereateBackOffice: function (callback) {
+                setTimeout(async () => {
+                    await generatedserver.genereateBackOffice();
+                    callback(null);
+                },4500);
+            },
+            startServer: function (callback) {
+                setTimeout(async () => {
+                    await startUpGeneratedServer();
+                    callback(null);
+                },5000);
+            },     
+        },
+        function (err, results) {
+            console.log("Generation ended...")
+        });
 
-app.post('/generateFolders', (req, res) => {
-    generatedserver.generateFolders();
-    res.sendStatus(200);
-});
-
-app.post('/generateClassAndDB', (req, res) => {
-    generatedserver.generateClasses();
-    generatedserver.generateDB();
-    res.sendStatus(200);
-});
-
-app.post('/generateDBRelationships', (req, res) => {
-    generatedserver.generateRelationships();
-    res.sendStatus(200);
-});
-
-app.post('/generateAPIs', (req, res) => {
-    generatedserver.generateAPIs();
-    res.sendStatus(200);
-});
-
-app.post('/generateBackOffice', (req,res) => {
-    generatedserver.generateBackOffice();
-    res.sendStatus(200);
-});
-       
-app.listen(8081, () => {
-    console.log("Server started on port 8081!");
-});
+}

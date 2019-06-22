@@ -162,7 +162,6 @@ module.exports = {
             db.run("INSERT INTO Movies(movie_name,movie_rating,movie_length,category_id) VALUES (?,?,?,?)"
             ,[movies[i].movie_name,movies[i].movie_rating,movies[i].movie_length,movies[i].category_id], function(err){
                 if (err) {
-                    console.log(err);
                     return;
                   }
             });
