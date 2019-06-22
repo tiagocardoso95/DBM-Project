@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var {{schemaName}} = require('../Models/{{schemaName}}.js');
+var {{schemaName}} = require('../Models/{{schemaName}}.js').{{schemaName}};
 
 router.get('/{{schemaName}}', function(req, res){
     {{schemaName}}.all(function(rows){
