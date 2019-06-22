@@ -24,6 +24,7 @@ function generateServer(req, res) {
     }, 1000);
     setTimeout(function () {
         generatedserver.generateFolders();
+        generatedserver.generateFrontOffice();
     }, 2000);
     setTimeout(function () {
         generatedserver.generateClasses();

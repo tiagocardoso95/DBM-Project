@@ -123,6 +123,12 @@ module.exports = {
             fs.writeFileSync(config.staticFiles[1].destinationPath + "/list.mustache", fs.readFileSync(config.staticFiles[1].originalPath));
         });
     },
+
+    generateFrontOffice() {
+        fs.writeFileSync(config.staticFiles[1].destinationPath + "/index.mustache", fs.readFileSync("./views/index.mustache"));
+        fs.writeFileSync(config.staticFiles[1].destinationPath + "/index.mustache", fs.readFileSync("./views/menu.mustache"));
+    },
+
     genereateBackOffice(){
         fs.readdir(path.resolve(config.schemaFolder), function (err, fileNames) {
             if (err) {

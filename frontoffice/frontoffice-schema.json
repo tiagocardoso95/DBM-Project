@@ -1,0 +1,12 @@
+{
+    "schemas": [
+        {
+            "name": "Aluno",
+            "href": "./Aluno"
+        },
+        {
+            "name": "Turma",
+            "href": "./Turma"
+        }
+    ]
+}
