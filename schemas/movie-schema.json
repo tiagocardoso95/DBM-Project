@@ -11,10 +11,6 @@
             "type": "string",
             "columnName": "movie_name"
         },
-        "category": {
-            "type": "string",
-            "columnName": "movie_category"
-        },
         "rating": {
             "type": "number",
             "columnName": "movie_rating"
@@ -24,10 +20,9 @@
             "columnName": "movie_length"
         }
     },
-    "props": "name,category,rating,cast,length",
+    "props": "name,rating,length",
     "required": [
         "name",
-        "category",
         "rating",
         "length"
     ],

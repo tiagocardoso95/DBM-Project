@@ -9,6 +9,7 @@ function generateClass(schema) {
     var update = "";
     var map = "";
     var questionMarks = "";
+    var foreignkey = schema.references;
 
     for(var prop in schema.properties){
         if(prop ==="id"){
@@ -23,7 +24,21 @@ function generateClass(schema) {
     columns = columns.substring(0,columns.length-1);
     update = update.substring(0,update.length-1);
     map = map.substring(0,map.length-1);
-    questionMarks = questionMarks.substring(0,questionMarks.length-1);
+    questionMarks = questionMarks.substring(0,questionMarks.length-1)
+    
+    if(foreignkey){
+        for(var i=0; i<foreignkey.length; i++){
+            if(foreignkey[i].relation === '1-M'){
+                var propToAdd = foreignkey[i].columnName;
+                classProps.push(propToAdd);
+                columns += ","+propToAdd;
+                questionMarks += ",?";
+                update += ", "+propToAdd+"=?";
+                map += "\n"+propToAdd+": "+"'"+ propToAdd+"'";
+            }
+        }
+    };
+
 
     var view = {
         classTitle: schema.title,

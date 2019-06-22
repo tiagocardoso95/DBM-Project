@@ -1,5 +1,6 @@
 {
-    "actors": [{
+    "actors": [
+        {
             "actor_id": 1,
             "actor_name": "Fernando Mendes",
             "actor_dateOfBirth": "10/10/1950"
@@ -24,6 +25,42 @@
             "actor_name": "Tiago Gomes",
             "actor_dateOfBirth": "11/11/1990"
         }
+    ],
+    "categories": [
+        {
+            "category_id": 1,
+            "category_name": "Action"
+        },
+        {
+            "category_id": 2,
+            "category_name": "Comedy"
+        },
+        {
+            "category_id": 3,
+            "category_name": "Romance"
+        }
+    ],
+    "movies": [
+        {
+            "movie_id": 1,
+            "movie_name": "Movie 1",
+            "movie_rating": 5,
+            "movie_length": "120Min",
+            "category_id": 1
+        },
+        {
+            "movie_id": 2,
+            "movie_name": "Movie 2",
+            "movie_rating": 7,
+            "movie_length": "90Min",
+            "category_id": 2
+        },
+        {
+            "movie_id": 3,
+            "movie_name": "Movie 3",
+            "movie_rating": 8,
+            "movie_length": "180Min",
+            "category_id": 3
+        }
     ]
-
 }

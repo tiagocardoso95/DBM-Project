@@ -34,10 +34,10 @@ function generateServer(req, res) {
     }, 4500);
     setTimeout(function () {
         generatedserver.generateAPIs();
-    }, 5000);
+    }, 6000);
     setTimeout(function () {
         generatedserver.genereateBackOffice();
-    }, 5500);
+    }, 7500);
     setTimeout(function () {
         var config = JSON.parse(fs.readFileSync('./Server/config.json'));
         var template = fs.readFileSync('./Server/server.mustache').toString();
@@ -74,7 +74,7 @@ function generateServer(req, res) {
         });
         childProcess.fork('./publish/index.js');
         generatedserver.populateGeneratedBD();
-    }, 6000)
+    }, 8000)
 }
 
 app.listen(8081, () => {
