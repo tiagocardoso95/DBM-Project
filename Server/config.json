@@ -1,7 +1,8 @@
 {
     "port": "8080",
     "modules": {
-        "express": true
+        "express": true,
+        "mustache-express": true
     },
     "dbName": "project_db.db",
     "schemaFolder": "./schemas",
@@ -9,6 +10,10 @@
         {
             "originalPath": "./database/sqlitedbm.js",
             "destinationPath": "./publish/Database"
+        },
+        {
+            "originalPath": "Server/staticFiles/list.mustache",
+            "destinationPath": "./publish/Views"
         }
     ]
 }

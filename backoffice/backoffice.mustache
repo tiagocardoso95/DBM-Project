@@ -1,0 +1,57 @@
+var express = require('express');
+var router = express.Router();
+
+var {{schemaName}} = require('../Models/{{schemaName}}.js');
+
+router.get('/{{schemaName}}', function(req, res){
+    {{schemaName}}.all(function(rows){
+        res.render('list', {
+            title: '{{schemaName}}s',
+            columns: Object.keys(new {{schemaName}}()).map(key => {
+                return {
+                    name: key
+                };
+            }),
+            rows: rows.map(obj => {
+                return {
+                    properties: Object.keys(obj).map(key => {
+                        return {
+                            name: key,
+                            value: obj[key]
+                        }
+                    }),
+                    actions: [{
+                        label: '',
+                        link: './{{schemaName}}/Detalhe/' + obj.id,
+                        image: {
+                            src: '../images/read.png'
+                        },
+                        tooltip: 'Detalhe'
+                    }, {
+                        label: '',
+                        link: './{{schemaName}}/Editar/' + obj.id,
+                        image: {
+                            src: '../images/edit.png'
+                        },
+                        tooltip: 'Editar'
+                    }, {
+                        label: '',
+                        link: '#',
+                        image: {
+                            src: '../images/delete.png'
+                        },
+                        tooltip: 'Apagar',
+                        events: [{
+                            name: "onclick",
+                            function: "apagar",
+                            args: obj.id
+                        }]
+
+                    }]
+                }
+            })
+        });
+    });  
+});
+
+module.exports = router;

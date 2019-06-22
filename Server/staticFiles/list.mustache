@@ -1,0 +1,23 @@
+<html>
+    <head>        
+        <title>{{title}}</title>    
+    </head>
+    <body>
+        <table>
+            <tr>                
+                {{#columns}}                
+                <th>{{.}}</th>                
+                {{/columns}}            
+            </tr>
+            {{#rows}}
+            <tr>
+                {{#properties}}
+                <td>
+                    {{.}}
+                </td>
+                {{/properties}}
+            </tr>
+            {{/rows}}
+        </table>
+    </body>
+</html>

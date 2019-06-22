@@ -1,8 +1,16 @@
 const express = require('express');
+const mustacheExpress = require('mustache-express');
 const app = express();
+
+app.engine('mustache', mustacheExpress());
+app.set('view engine', 'mustache');
+app.set('views', __dirname + '/Views');
+
 {{{routing_consts}}}
+{{{backoffice_routing}}}
 
 {{{routing_using}}}
+{{{backoffice_using}}}
 
 app.get("/", function (req, res) 
 {

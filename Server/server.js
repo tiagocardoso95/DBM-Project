@@ -6,6 +6,7 @@ var genClass = require('../models/generate-class');
 var path = require("path");
 var dbGenerator = require('../database/generate-database');
 var apiGenerator = require('../api/generate-api');
+var backOfficeGenerator = require('../backoffice/generate-backoffice');
 
 module.exports = {
     deleteFolders() {
@@ -118,9 +119,22 @@ module.exports = {
                 apiGenerator.generateAPI(schema);
                 console.log("API for "+schema.title+" generated!");
             });
-
             fs.writeFileSync(config.staticFiles[0].destinationPath+"/sqlitedbm.js",fs.readFileSync(config.staticFiles[0].originalPath));
+            fs.writeFileSync(config.staticFiles[1].destinationPath + "/list.mustache", fs.readFileSync(config.staticFiles[1].originalPath));
         });
+    },
+    genereateBackOffice(){
+        fs.readdir(path.resolve(config.schemaFolder), function (err, fileNames) {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            fileNames.forEach(function (fileName) {
+                var schema = JSON.parse(fs.readFileSync(path.resolve(config.schemaFolder) + "/" + fileName));
+                backOfficeGenerator.generateBackOffice(schema);
+                console.log("Backoffice for " + schema.title + " generated!");
+            });
+        });  
     },
     populateGeneratedBD(){
         var db = require("../publish/Database/sqlitedbm")("project_db.db");
