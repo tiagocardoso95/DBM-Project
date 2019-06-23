@@ -5,15 +5,18 @@
     "properties": {
         "id":{
           "type": "number",
-          "columnName": "actor_id"  
+          "columnName": "actor_id",
+          "label": "Identifier"  
         },
         "name": {
             "type": "string",
-            "columnName": "actor_name"
+            "columnName": "actor_name",
+            "label": "Name"  
         },
         "dateOfBirth": {
             "type": "string",
-            "columnName": "actor_dateOfBirth"
+            "columnName": "actor_dateOfBirth",
+            "label": "Date of Birth"  
         }
     },
     "props": "name,dateOfBirth",

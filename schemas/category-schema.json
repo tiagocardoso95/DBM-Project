@@ -5,11 +5,13 @@
     "properties": {
         "id":{
             "type": "number",
-            "columnName": "category_id"  
+            "columnName": "category_id",
+            "label": "Identifier"   
           },
         "name": {
             "type": "string",
-            "columnName": "category_name"
+            "columnName": "category_name",
+            "label": "Name" 
         }
     },
     "props": "name",

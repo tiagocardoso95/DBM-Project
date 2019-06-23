@@ -30,3 +30,17 @@
         </table>
     </body>
 </html>
+
+<script>        
+    function deleteRecord(id) {
+        var xhr = new XMLHttpRequest();
+        var title = '{{title}}'.slice(0,-1);
+        xhr.open("DELETE", "../api/"+title+"/" + id, true);
+        xhr.onreadystatechange = function () {
+            if(xhr.readyState === 4 && xhr.status === 200) {
+                window.location.reload();
+            }
+        }
+        xhr.send(); 
+    }
+</script>

@@ -5,15 +5,18 @@
     "properties": {
         "id":{
             "type": "number",
-            "columnName": "director_id"  
+            "columnName": "director_id",
+            "label": "Identifier"   
           },
         "name": {
             "type": "string",
-            "columnName": "director_name"
+            "columnName": "director_name",
+            "label": "Name" 
         },
         "dateOfBirth": {
             "type": "string",
-            "columnName": "director_dateOfBirth"
+            "columnName": "director_dateOfBirth",
+            "label": "Date of Birth" 
         }
     },
     "props": "name,dateOfBirth",

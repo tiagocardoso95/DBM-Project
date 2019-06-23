@@ -5,19 +5,23 @@
     "properties": {
         "id":{
             "type": "number",
-            "columnName": "movie_id"  
+            "columnName": "movie_id",
+            "label": "Identifier"   
           },
         "name": {
             "type": "string",
-            "columnName": "movie_name"
+            "columnName": "movie_name",
+            "label": "Name" 
         },
         "rating": {
             "type": "number",
-            "columnName": "movie_rating"
+            "columnName": "movie_rating",
+            "label": "Rating" 
         },
         "length": {
             "type": "string",
-            "columnName": "movie_length"
+            "columnName": "movie_length",
+            "label": "Length" 
         }
     },
     "props": "name,rating,length",

@@ -26,6 +26,10 @@
         {
             "originalPath": "Server/staticFiles/read.png",
             "destinationPath": "./publish/Public/Images/read.png"
+        },
+        {
+            "originalPath": "Server/staticFiles/details.mustache",
+            "destinationPath": "./publish/Views/details.mustache"
         }
     ]
 }

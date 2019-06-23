@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var fs = require("fs");
 
 {{#schemas}}
 var {{schemaName}} = require('../Models/{{schemaName}}.js').{{schemaName}};
@@ -26,14 +27,14 @@ router.get('/{{schemaName}}', function(req, res){
                     }),
                     actions: [{
                         label: '',
-                        link: './{{schemaName}}/Detalhe/' + obj.id,
+                        link: './{{schemaName}}/detalhe/' + obj.id,
                         image: {
                             src: '../Images/read.png'
                         },
                         tooltip: 'Detalhe'
                     }, {
                         label: '',
-                        link: './{{schemaName}}/Editar/' + obj.id,
+                        link: './{{schemaName}}/editar/' + obj.id,
                         image: {
                             src: '../Images/edit.png'
                         },
@@ -47,7 +48,7 @@ router.get('/{{schemaName}}', function(req, res){
                         tooltip: 'Apagar',
                         events: [{
                             name: "onclick",
-                            function: "apagar",
+                            function: "deleteRecord",
                             args: obj.id
                         }]
 
@@ -57,6 +58,36 @@ router.get('/{{schemaName}}', function(req, res){
         });
     });  
 });
+
+router.get('/{{schemaName}}/detalhe/:id', function(req, res){
+    {{schemaName}}.get(req.params.id, function(rows){
+        if(rows){
+            var schema = JSON.parse(fs.readFileSync("Schemas/" + "{{{schemaName}}}".toLowerCase()+ "-schema.json"));
+            res.render('details', {
+                properties: rows.map(obj => {
+                        return {
+                             values: Object.keys(obj).map(key => {
+                                 console.log(key);
+                                return {
+                                    name: getPropertyLabel(schema,key),
+                                    value: obj[key]
+                            }
+                        })
+                    }
+                })
+            });
+        }
+    });
+});
+
+
 {{/schemas}}
+
+function getPropertyLabel(schema, property){
+    if(schema.properties[property] != null){
+        return schema.properties[property].label;
+    }   
+    return "";
+}
 
 module.exports = router;
