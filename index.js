@@ -7,17 +7,33 @@ var sqlite = require("sqlite3");
 var generatedserver = require('./Server/server');
 var path = require('path');
 var async = require('async');
-
+var bodyParser = require('body-parser');
+var jsonParser = bodyParser.json();
 app.use(express.static('public'));
 
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
+
 app.post('/startServer', (req, res) => {
-    startGeneration();
+    var styles = {
+        backgroundColor: req.body.backgroundColor.replace(/ /g,'').toLowerCase(),
+        menuPosition: req.body.menuPosition.toLowerCase(),
+        menuColour: req.body.menuColour.replace(/ /g,'').toLowerCase(),
+    }
+    console.log(styles);
+    startGeneration(styles);
     res.sendStatus(200);
 });
+
 
 app.listen(8081, () => {
     console.log("Server started on port 8081!");
 });
+
+
 
 function startUpGeneratedServer() {
     var config = JSON.parse(fs.readFileSync('./Server/config.json'));
@@ -33,6 +49,10 @@ function startUpGeneratedServer() {
         var backOfficeRouting = "const backOffice = require('./Controllers/backoffice.js');";
         var backOfficeUsing = "app.use('/backoffice',backOffice);";
 
+        var frontOfficeRouting = "const frontOffice = require('./Controllers/frontoffice.js');";
+        var frontOfficeUsing = "app.use('/',frontOffice);";
+
+
         fileNames.forEach(function (fileName) {
             var schema = JSON.parse(fs.readFileSync(path.resolve(config.schemaFolder) + "/" + fileName));
             constsRouting += "const " + schema.title + "_routing = require('./Controllers/" + schema.title + "-api.js');\n";
@@ -44,7 +64,9 @@ function startUpGeneratedServer() {
             routing_consts: constsRouting,
             routing_using: usingRouting,
             backoffice_routing: backOfficeRouting,
-            backoffice_using: backOfficeUsing
+            backoffice_using: backOfficeUsing,
+            frontOffice_routing: frontOfficeRouting,
+            frontOffice_using: frontOfficeUsing,
         }
 
         var output = mustache.render(template, view);
@@ -55,7 +77,7 @@ function startUpGeneratedServer() {
     generatedserver.populateGeneratedBD();
 }
 
-function startGeneration() {
+function startGeneration(styles) {
     console.log("Generation started...")
     async.parallel({
             deleteFolders: function (callback) {
@@ -98,6 +120,12 @@ function startGeneration() {
             genereateBackOffice: function (callback) {
                 setTimeout(async () => {
                     await generatedserver.generateBackOffice();
+                    callback(null);
+                },4500);
+            },
+            generateFrontOffice: function (callback) {
+                setTimeout(async () => {
+                    await generatedserver.generateFrontOffice(styles);
                     callback(null);
                 },4500);
             },

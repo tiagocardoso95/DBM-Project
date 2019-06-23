@@ -6,6 +6,7 @@
     },
     "dbName": "project_db.db",
     "schemaFolder": "./schemas",
+    "siteTitle": "Movie Base",
     "staticFiles": [
         {
             "originalPath": "./database/sqlitedbm.js",
@@ -26,6 +27,10 @@
         {
             "originalPath": "Server/staticFiles/read.png",
             "destinationPath": "./publish/Public/Images/read.png"
+        },
+        {
+            "originalPath": "Server/views/",
+            "destinationPath": "./publish/Views/"
         }
     ]
 }

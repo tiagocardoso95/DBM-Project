@@ -15,10 +15,8 @@ app.set('views', __dirname + '/Views');
 {{{routing_using}}}
 {{{backoffice_using}}}
 
-app.get("/", function (req, res) 
-{
-    res.render('index');
-});
+{{{frontOffice_routing}}}
+{{{frontOffice_using}}}
 
 app.listen({{port}}, () => {
     console.log("Generated Server running on port {{port}}!!");

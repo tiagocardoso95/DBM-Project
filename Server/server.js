@@ -7,6 +7,7 @@ var path = require("path");
 var dbGenerator = require('../database/generate-database');
 var apiGenerator = require('../api/generate-api');
 var backOfficeGenerator = require('../backoffice/generate-backoffice');
+var frontOfficeGenerator = require('../frontoffice/generate-frontoffice');
 
 module.exports = {
     deleteFolders() {
@@ -122,9 +123,30 @@ module.exports = {
         });
     },
 
-    generateFrontOffice() {
-        fs.writeFileSync(config.staticFiles[1].destinationPath + "/index.mustache", fs.readFileSync("./views/index.mustache"));
-        fs.writeFileSync(config.staticFiles[1].destinationPath + "/index.mustache", fs.readFileSync("./views/menu.mustache"));
+    generateFrontOffice(styles) {
+        fs.writeFileSync(config.staticFiles[5].destinationPath + "/index.mustache", fs.readFileSync("./views/index.mustache"));
+        fs.writeFileSync(config.staticFiles[5].destinationPath + "/sidebar.mustache", fs.readFileSync("./views/sidebar.mustache"));
+        var schemas = [];
+        fs.readdir(path.resolve(config.schemaFolder), function (err, fileNames) {
+            if (err) {
+                console.log(err);
+                return;
+            }
+            fileNames.forEach(function (fileName) {
+                var schema = JSON.parse(fs.readFileSync(path.resolve(config.schemaFolder) + "/" + fileName));
+                var name = schema.title;
+                var schemaObj = {
+                    schema: schema,
+                    schemaName: name
+                }       
+                schemas.push(schemaObj);
+                
+                frontOfficeGenerator.generateFrontOffice(schemas,styles);
+                
+            });         
+        });
+        console.log("FrontOffice generated!");
+        
     },
 
     generateBackOffice(){
@@ -144,6 +166,7 @@ module.exports = {
                 schemas.push(schemaObj);
                 
                 backOfficeGenerator.generateBackOffice(schemas);
+                
             });         
         });
         console.log("Backoffice generated!");
