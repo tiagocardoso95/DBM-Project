@@ -9,11 +9,23 @@
     "staticFiles": [
         {
             "originalPath": "./database/sqlitedbm.js",
-            "destinationPath": "./publish/Database"
+            "destinationPath": "./publish/Database/sqlitedbm.js"
         },
         {
             "originalPath": "Server/staticFiles/list.mustache",
-            "destinationPath": "./publish/Views"
+            "destinationPath": "./publish/Views/list.mustache"
+        },
+        {
+            "originalPath": "Server/staticFiles/delete.png",
+            "destinationPath": "./publish/Public/Images/delete.png"
+        },
+        {
+            "originalPath": "Server/staticFiles/edit.png",
+            "destinationPath": "./publish/Public/Images/edit.png"
+        },
+        {
+            "originalPath": "Server/staticFiles/read.png",
+            "destinationPath": "./publish/Public/Images/read.png"
         }
     ]
 }

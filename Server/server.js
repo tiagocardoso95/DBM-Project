@@ -119,8 +119,6 @@ module.exports = {
                 apiGenerator.generateAPI(schema);
                 console.log("API for "+schema.title+" generated!");
             });
-            fs.writeFileSync(config.staticFiles[0].destinationPath+"/sqlitedbm.js",fs.readFileSync(config.staticFiles[0].originalPath));
-            fs.writeFileSync(config.staticFiles[1].destinationPath + "/list.mustache", fs.readFileSync(config.staticFiles[1].originalPath));
         });
     },
 
@@ -129,7 +127,8 @@ module.exports = {
         fs.writeFileSync(config.staticFiles[1].destinationPath + "/index.mustache", fs.readFileSync("./views/menu.mustache"));
     },
 
-    genereateBackOffice(){
+    generateBackOffice(){
+        var schemas = [];
         fs.readdir(path.resolve(config.schemaFolder), function (err, fileNames) {
             if (err) {
                 console.log(err);
@@ -137,10 +136,17 @@ module.exports = {
             }
             fileNames.forEach(function (fileName) {
                 var schema = JSON.parse(fs.readFileSync(path.resolve(config.schemaFolder) + "/" + fileName));
-                backOfficeGenerator.generateBackOffice(schema);
-                console.log("Backoffice for " + schema.title + " generated!");
-            });
-        });  
+                var name = schema.title;
+                var schemaObj = {
+                    schema: schema,
+                    schemaName: name
+                }       
+                schemas.push(schemaObj);
+                
+                backOfficeGenerator.generateBackOffice(schemas);
+            });         
+        });
+        console.log("Backoffice generated!");
     },
     populateGeneratedBD(){
         var db = require("../publish/Database/sqlitedbm")("project_db.db");
@@ -174,5 +180,11 @@ module.exports = {
                   }
             });
         }
+    },
+    copyStaticFiles(){
+        for(var i=0; i<config.staticFiles.length; i++){
+            fs.writeFileSync(config.staticFiles[i].destinationPath, fs.readFileSync(config.staticFiles[i].originalPath));
+        }
+        console.log("Static Files Copied!"); 
     }
 }

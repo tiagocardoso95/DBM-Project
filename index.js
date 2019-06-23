@@ -30,15 +30,13 @@ function startUpGeneratedServer() {
 
         var constsRouting = "";
         var usingRouting = "";
-        var backOfficeRouting = "";
-        var backOfficeUsing = "";
+        var backOfficeRouting = "const backOffice = require('./Controllers/backoffice.js');";
+        var backOfficeUsing = "app.use('/backoffice',backOffice);";
 
         fileNames.forEach(function (fileName) {
             var schema = JSON.parse(fs.readFileSync(path.resolve(config.schemaFolder) + "/" + fileName));
             constsRouting += "const " + schema.title + "_routing = require('./Controllers/" + schema.title + "-api.js');\n";
-            backOfficeRouting += "const " + schema.title + "_backOfficeRouting = require('./Controllers/" + schema.title + "-backoffice.js');\n";
             usingRouting += "app.use('/api'," + schema.title + "_routing);\n";
-            backOfficeUsing += "app.use('/backoffice'," + schema.title + "_backOfficeRouting);\n";
         });
 
         var view = {
@@ -85,6 +83,12 @@ function startGeneration() {
                     callback(null);
                 },2500);
             },
+            copyStaticFiles: function (callback){
+                setTimeout(async () => {
+                    await generatedserver.copyStaticFiles();
+                    callback(null);
+                },3000);
+            },
             generateAPIS: function (callback) {
                 setTimeout(async () => {
                     await generatedserver.generateAPIs();
@@ -93,7 +97,7 @@ function startGeneration() {
             },
             genereateBackOffice: function (callback) {
                 setTimeout(async () => {
-                    await generatedserver.genereateBackOffice();
+                    await generatedserver.generateBackOffice();
                     callback(null);
                 },4500);
             },
