@@ -1,7 +1,35 @@
-<nav>
-    <ul>
+<nav id="nav">
+    <h4 id="menuH4">Menu</h4>
+    <ul id= "ul">
         {{#schemas}}
+            <hr>
             <li><a href="{{href}}">{{name}}</a></li>
         {{/schemas}}
     </ul>
 </nav>
+
+<style>
+#nav {
+    margin-top: 2%;
+    float: {{menuPosition}};
+    width: 20%;
+    border: 1px solid;
+    border-radius: 15px;
+    background: {{menuColour}}    
+}
+#ul {
+    padding-left: 0px;
+    list-style: none;
+}
+#ul > li > a{
+    margin-left: 20%;
+    font-family: "Verdana";
+    font-size: 20px;
+    text-decoration: none;
+}
+#menuH4 {
+    font-size: 25px;
+    font-family: "Verdana";
+    margin-left: 10px;
+}
+</style>

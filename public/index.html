@@ -8,14 +8,76 @@
 
 <body>
     <h3>DBM Project</h3>
+    
+
+    <div class="styleManager">
+        <h3>Style Manager</h3>
+
+        <h5>Site Background Color: </h5>
+        <select id="background-color-select">
+            <option>White</option>
+            <option>Red</option>
+            <option>Navy</option>
+            <option>Light Grey</option>
+            <option>Light Blue</option>
+            <option>Black</option> 
+        </select>
+
+        <h5>Menu Background Color: </h5>
+        <select id="menu-color-select">
+            <option>White</option>
+            <option>Red</option>
+            <option>Navy</option>
+            <option>Light Grey</option>
+            <option>Light Blue</option>
+            <option>Black</option> 
+        </select>
+
+        <h5>Menu Position: </h5>
+        <select id="menu-position-select">
+            <option>Left</option>
+            <option>Right</option>
+        </select>
+
+
+    </div>
     <button onclick="sendAjxRquest()">Start Generated Server</button>
 </body>
 
 </html>
 
 <script>
+
     function sendAjxRquest(){
-        $.post("http://localhost:8081/startServer", function(data) {
+        //Background Color
+        let select = document.getElementById("background-color-select");
+        var option = select.options[select.selectedIndex].value;
+        //Menu Position
+        let menuSelect = document.getElementById("menu-position-select");
+        var menuPosition = menuSelect.options[menuSelect.selectedIndex].value;
+        //Menu Color
+        let menuColorSelect = document.getElementById("menu-color-select");
+        var menuColour = menuColorSelect.options[menuColorSelect.selectedIndex].value;
+
+        console.log(option);
+        var body = {
+            backgroundColor: option,
+            menuPosition: menuPosition,
+            menuColour: menuColour,
+        }
+        $.ajax({
+             type: 'POST',
+             data: body,
+             url: 'http://localhost:8081/startServer'
         });
     }
 </script>
+
+<style>
+.styleManager{
+    border: 1px solid black;
+    width: 30%;
+    margin: 10px;
+    padding: 5px;
+}
+</style>
