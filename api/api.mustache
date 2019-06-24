@@ -1,7 +1,7 @@
 var express = require('express');
 var router = express.Router();
 
-var {{schemaName}} = require('../Models/{{schemaName}}.js');
+var {{schemaName}} = require('../Models/{{schemaName}}.js').{{schemaName}};
 
 router.get('/{{schemaName}}', function(req, res){
     {{schemaName}}.all(function (rows){
@@ -16,16 +16,30 @@ router.get('/{{schemaName}}/:id', function(req, res){
 });
 
 router.post('/{{schemaName}}', function(req, res){
-    const { {{schemaProps}} } = req.body;
-    var newData = new {{schemaName}}({{schemaProps}});
+    var obj = {};
+    Object.keys(req.body).forEach(elem => {
+        let filteredAtr = elem.replace(/ /g,'').toLowerCase();
+        obj[filteredAtr] = req.body[elem];
+    });
+    
+    const { {{schemaProps}} } = obj;
+
+    var newData = new {{schemaName}}(undefined,{{schemaProps}});
         newData.save(function(){
         console.log("Data Inserted!");
     });
     res.sendStatus(200);
 });
 
-router.put('/{{schemaName}}/:id', function(req, res){
-    const { {{schemaProps}} } = req.body;
+router.post('/{{schemaName}}/:id', function(req, res){
+    var obj = {};
+    Object.keys(req.body).forEach(elem => {
+        let filteredAtr = elem.replace(/ /g,'').toLowerCase();
+        obj[filteredAtr] = req.body[elem];
+    });
+    
+    const { {{schemaProps}} } = obj;
+    console.log(obj);
     var newData = new {{schemaName}}(req.params.id,{{schemaProps}});
         newData.save(function(){
         console.log("Data Updated!");

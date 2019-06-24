@@ -1,13 +1,13 @@
 <html>
     <body>
-        <form method="" action="">
+        <form method="{{method}}" action="/api/{{schemaName}}/{{id}}">
         {{#properties}}
             <div>
-                {{#values}}            
+                    
                 <label>{{name}}:</label>            
                 <input type="{{typeInput}}" name="{{name}}" value="{{value}}"/>
                 <br>
-                {{/values}}      
+                 
             </div>        
         {{/properties}}
         <input type="submit" value="Submit"/> 

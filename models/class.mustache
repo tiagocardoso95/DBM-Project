@@ -7,10 +7,11 @@ class {{classTitle}}{
 }
 
 {{classTitle}}.prototype.save = function(callback){
+    console.log(this);
     if (this.id){
-        database.run("UPDATE {{table}} SET {{{update}}}  WHERE {{primaryKey}} "+"=?",[this ,this.id])
+        database.run("UPDATE {{table}} SET {{{update}}}  WHERE {{primaryKey}} =?",[{{dbProps}} ,this.id])
     }else{
-        database.run("INSERT INTO {{table}} ({{columns}}) VALUES ({{questionMarks}})",this);
+        database.run("INSERT INTO {{table}} ({{columns}}) VALUES ({{questionMarks}})",[{{dbProps}}]);
     }
 }
 
