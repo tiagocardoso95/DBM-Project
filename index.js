@@ -17,6 +17,10 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
+app.get('/editor',(req, res) => {
+    res.sendFile(path.join(__dirname + '/public/editor.html'));
+});
+
 app.post('/startServer', (req, res) => {
     var styles = {
         backgroundColor: req.body.backgroundColor.replace(/ /g,'').toLowerCase(),

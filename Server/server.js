@@ -122,10 +122,7 @@ module.exports = {
             });
         });
     },
-
     generateFrontOffice(styles) {
-        fs.writeFileSync(config.staticFiles[5].destinationPath + "/index.mustache", fs.readFileSync("./views/index.mustache"));
-        fs.writeFileSync(config.staticFiles[5].destinationPath + "/sidebar.mustache", fs.readFileSync("./views/sidebar.mustache"));
         var schemas = [];
         fs.readdir(path.resolve(config.schemaFolder), function (err, fileNames) {
             if (err) {
@@ -145,10 +142,8 @@ module.exports = {
                 
             });         
         });
-        console.log("FrontOffice generated!");
-        
+        console.log("FrontOffice generated!");     
     },
-
     generateBackOffice(){
         var schemas = [];
         fs.readdir(path.resolve(config.schemaFolder), function (err, fileNames) {

@@ -2,53 +2,85 @@
 <html>
 
 <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <title>DBM Projeto</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="bootstrap-select.css">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <script src="bootstrap-select.js"></script>
+    <title>DBM Project</title>
 </head>
 
 <body>
-    <h3>DBM Project</h3>
-    
+    <nav class="navbar navbar-light">
+        <a class="navbar-brand" href="/">
+            <img src="https://image.flaticon.com/icons/png/512/70/70370.png" width="30" height="30"
+                class="d-inline-block align-top" alt="">
+            Model Driven Development
+        </a>
+        <a class="navbar-brand" href="/editor">
+            <img src="https://ui-ex.com/images/vector-maps-folded.png" width="30" height="30"
+                class="d-inline-block align-top" alt="">
+            JSON Schema Editor
+        </a>
+    </nav>
 
-    <div class="styleManager">
-        <h3>Style Manager</h3>
+    <div class="jumbotron">
+        <div>
+            <h3><img src="https://image.flaticon.com/icons/png/512/31/31257.png" width="50" height="50">Create your
+                Cinema Website</h3>
+        </div>
+        <div class="styleManager">
+            <h3>Style Manager</h3>
 
-        <h5>Site Background Color: </h5>
-        <select id="background-color-select">
-            <option>White</option>
-            <option>Red</option>
-            <option>Navy</option>
-            <option>Light Grey</option>
-            <option>Light Blue</option>
-            <option>Black</option> 
-        </select>
+            <h5>Site Background Color </h5>
+            <select class="selectpicker show-menu-arrow form-control" id="background-color-select">
+                <option>White</option>
+                <option>Red</option>
+                <option>Navy</option>
+                <option>Light Grey</option>
+                <option>Light Blue</option>
+                <option>Black</option>
+            </select>
 
-        <h5>Menu Background Color: </h5>
-        <select id="menu-color-select">
-            <option>White</option>
-            <option>Red</option>
-            <option>Navy</option>
-            <option>Light Grey</option>
-            <option>Light Blue</option>
-            <option>Black</option> 
-        </select>
-
-        <h5>Menu Position: </h5>
-        <select id="menu-position-select">
-            <option>Left</option>
-            <option>Right</option>
-        </select>
+            <h5>Menu Background Color </h5>
+            <select class="selectpicker show-menu-arrow form-control" id="menu-color-select">
+                <option>White</option>
+                <option>Red</option>
+                <option>Navy</option>
+                <option>Light Grey</option>
+                <option>Light Blue</option>
+                <option>Black</option>
+            </select>
 
 
+            <h5>Menu Position </h5>
+            <select class="selectpicker show-menu-arrow form-control" id="menu-position-select">
+                <option>Left</option>
+                <option>Right</option>
+            </select>
+
+            <button class="btn btn-primary" onclick="sendAjxRquest()">Start Generated Server</button>
+        </div>
     </div>
-    <button onclick="sendAjxRquest()">Start Generated Server</button>
 </body>
+
+<footer>
+    <div class="text-center">© 2019 DBM <br> Tiago Cardoso & Tiago Gomes</div>
+</footer>
 
 </html>
 
 <script>
-
-    function sendAjxRquest(){
+    function sendAjxRquest() {
         //Background Color
         let select = document.getElementById("background-color-select");
         var option = select.options[select.selectedIndex].value;
@@ -66,18 +98,50 @@
             menuColour: menuColour,
         }
         $.ajax({
-             type: 'POST',
-             data: body,
-             url: 'http://localhost:8081/startServer'
+            type: 'POST',
+            data: body,
+            url: 'http://localhost:8081/startServer'
         });
     }
 </script>
 
 <style>
-.styleManager{
-    border: 1px solid black;
-    width: 30%;
-    margin: 10px;
-    padding: 5px;
-}
+    .styleManager {
+        border: 1px solid black;
+        width: 40%;
+        margin: auto;
+        padding: 15px;
+        border-radius: 10px;
+        border-width: thin;
+        cursor: pointer;
+        text-align: center;
+
+    }
+
+    h3 {
+        text-align: center;
+        margin-bottom: 1.5rem;
+    }
+
+    h5 {
+        margin-bottom: 1.5rem;
+        margin-top: 1.5rem;
+    }
+
+    footer {
+        position: relative;
+    }
+
+    .jumbotron {
+        margin-bottom: 10px;
+        padding: 15px;
+    }
+
+    button {
+        margin: 10px;
+    }
+
+    .form-control {
+        margin-bottom: 10px;
+    }
 </style>

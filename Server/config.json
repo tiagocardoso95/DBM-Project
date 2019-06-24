@@ -13,7 +13,7 @@
             "destinationPath": "./publish/Database/sqlitedbm.js"
         },
         {
-            "originalPath": "Server/staticFiles/list.mustache",
+            "originalPath": "Server/staticFiles/Templates/list.mustache",
             "destinationPath": "./publish/Views/list.mustache"
         },
         {
@@ -29,11 +29,15 @@
             "destinationPath": "./publish/Public/Images/read.png"
         },
         {
-            "originalPath": "Server/views/",
-            "destinationPath": "./publish/Views/"
+            "originalPath": "Server/staticFiles/Templates/index.mustache",
+            "destinationPath": "./publish/Views/index.mustache"
         },
         {
-            "originalPath": "Server/staticFiles/details.mustache",
+            "originalPath": "Server/staticFiles/Templates/sidebar.mustache",
+            "destinationPath": "./publish/Views/sidebar.mustache"
+        },
+        {
+            "originalPath": "Server/staticFiles/Templates/details.mustache",
             "destinationPath": "./publish/Views/details.mustache"
         }
         
