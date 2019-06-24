@@ -28,6 +28,7 @@
             </tr>
             {{/rows}}
         </table>
+        <button onclick="createNewRecord()">New Entry</button>
     </body>
 </html>
 
@@ -42,5 +43,10 @@
             }
         }
         xhr.send(); 
+    }
+
+    function createNewRecord(){
+         var title = '{{title}}'.slice(0,-1);
+        window.location.href = "../backoffice/"+title+"/insert";
     }
 </script>

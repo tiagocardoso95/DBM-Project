@@ -39,6 +39,10 @@
         {
             "originalPath": "Server/staticFiles/Templates/details.mustache",
             "destinationPath": "./publish/Views/details.mustache"
+        },
+        {
+            "originalPath": "Server/staticFiles/Templates/form.mustache",
+            "destinationPath": "./publish/Views/form.mustache"
         }
         
     ]

@@ -131,7 +131,7 @@ function startGeneration(styles) {
                 setTimeout(async () => {
                     await generatedserver.generateFrontOffice(styles);
                     callback(null);
-                },4500);
+                },4750);
             },
             startServer: function (callback) {
                 setTimeout(async () => {

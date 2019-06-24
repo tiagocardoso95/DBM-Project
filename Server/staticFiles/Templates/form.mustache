@@ -1,0 +1,16 @@
+<html>
+    <body>
+        <form method="" action="">
+        {{#properties}}
+            <div>
+                {{#values}}            
+                <label>{{name}}:</label>            
+                <input type="{{typeInput}}" name="{{name}}" value="{{value}}"/>
+                <br>
+                {{/values}}      
+            </div>        
+        {{/properties}}
+        <input type="submit" value="Submit"/> 
+        </form>
+    </body>
+</html>

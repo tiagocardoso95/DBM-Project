@@ -21,7 +21,7 @@
         "length": {
             "type": "string",
             "columnName": "movie_length",
-            "label": "Length" 
+            "label": "Length(Min)" 
         }
     },
     "props": "name,rating,length",

@@ -10,11 +10,12 @@ var {{schemaName}} = require('../Models/{{schemaName}}.js').{{schemaName}};
 {{#schemas}}
 router.get('/{{schemaName}}', function(req, res){
     {{schemaName}}.all(function(rows){
+        var schema = JSON.parse(fs.readFileSync("Schemas/" + "{{{schemaName}}}".toLowerCase()+ "-schema.json"));
         res.render('list', {
             title: '{{schemaName}}s',
             columns: Object.keys(new {{schemaName}}()).map(key => {
                 return {
-                    name: key
+                    name: getPropertyLabel(schema,key)
                 };
             }),
             rows: rows.map(obj => {
@@ -67,7 +68,6 @@ router.get('/{{schemaName}}/detalhe/:id', function(req, res){
                 properties: rows.map(obj => {
                         return {
                              values: Object.keys(obj).map(key => {
-                                 console.log(key);
                                 return {
                                     name: getPropertyLabel(schema,key),
                                     value: obj[key]
@@ -80,14 +80,59 @@ router.get('/{{schemaName}}/detalhe/:id', function(req, res){
     });
 });
 
+router.get('/{{schemaName}}/editar/:id', function(req, res){
+    {{schemaName}}.get(req.params.id, function(rows){
+        if(rows){
+            var schema = JSON.parse(fs.readFileSync("Schemas/" + "{{{schemaName}}}".toLowerCase()+ "-schema.json"));
+            res.render('form', {
+                properties: rows.map(obj => {
+                        return {    
+                             values: Object.keys(obj).map(key => {
+                                    return {
+                                        name: getPropertyLabel(schema,key),
+                                        value: obj[key],
+                                        typeInput: getPropertyType(schema, key)
+                            }
+                        })
+                    }
+                })
+            });
+        }
+    });
+});
+
+router.get('/{{schemaName}}/insert', function (req, res){
+    res.json("SOON");
+});
+
 
 {{/schemas}}
 
 function getPropertyLabel(schema, property){
     if(schema.properties[property] != null){
         return schema.properties[property].label;
+    }else{
+        for(var i=0; i<schema.references.length; i++){
+            if(schema.references[i].relation === '1-M'){
+                if(schema.references[i].columnName === property){
+                    return schema.references[i].model;
+                }
+            }
+        }       
     }   
     return "";
+}
+
+function getPropertyType(schema, property){
+    if(schema.properties[property] != null){
+        if(property.includes("date")){
+            return "date";
+        }else if(schema.properties[property].type === 'string'){
+            return "text";
+        }else{
+            return "number";
+        }
+    }
 }
 
 module.exports = router;
