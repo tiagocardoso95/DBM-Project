@@ -61,6 +61,10 @@
                 <option>Black</option>
             </select>
 
+            
+            <h5>Site Image</h5>
+            <img id="BackGround1" class="preview-pic" onclick="selectImg('BackGround1')" src="./Images/BackGround1.jpg">
+            <img id="BackGround2" class="preview-pic" onclick="selectImg('BackGround2')" src="./Images/BackGround2.jpg">
 
             <h5>Menu Position </h5>
             <select class="selectpicker show-menu-arrow form-control" id="menu-position-select">
@@ -94,6 +98,18 @@
 </html>
 
 <script>
+    var selectedImg = {
+        id: undefined,
+    }
+
+    function selectImg(id){
+        if(selectImg.id){
+            $("#"+selectImg.id).css({"border":"1px solid lightgrey"});
+        }
+        $("#"+id).css({"border":"3px solid lightgrey"});
+        selectImg.id = id;
+    }
+
     function sendAjxRquest() {
         //Background Color
         let select = document.getElementById("background-color-select");
@@ -108,11 +124,15 @@
         let websiteNameInput = document.getElementById("inputdefault");
         var websiteName = websiteNameInput.value;
 
+       // let imageInput = document.getElementById("web_image");
+       // var image = imageInput.value;
+
         var body = {
             backgroundColor: option,
             menuPosition: menuPosition,
             menuColour: menuColour,
-            websiteName: websiteName
+            websiteName: websiteName,
+            image: selectImg.id,
         }
         $.ajax({
             type: 'POST',
@@ -145,6 +165,13 @@
         border-width: thin;
         cursor: pointer;
         text-align: center;
+    }
+    .preview-pic {
+        width: 100px;
+        height: 100px;
+        border: 1px solid lightgray;
+        display: inline-block;
+        border-radius: 5px;
     }
 
     #name-input {

@@ -80,11 +80,13 @@ app.post('/editor',(req,res) => {
 });
 
 app.post('/startServer', (req, res) => {
+    console.log(req.body);
     var styles = {
         backgroundColor: req.body.backgroundColor.replace(/ /g,'').toLowerCase(),
         menuPosition: req.body.menuPosition.toLowerCase(),
         menuColour: req.body.menuColour.replace(/ /g,'').toLowerCase(),
-        websiteName: req.body.websiteName
+        websiteName: req.body.websiteName,
+        image: req.body.image,
     }
     startGeneration(styles, () => {
         res.json({success : true});

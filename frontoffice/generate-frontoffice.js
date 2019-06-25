@@ -15,6 +15,7 @@ function generateFrontOffice(schemas,styleConfig){
             background: styleConfig.backgroundColor,
             menuPosition: styleConfig.menuPosition,
             menuColour: styleConfig.menuColour,
+            imageLink: "../Images/"+styleConfig.image+".jpg",
         }
         
         var template = fs.readFileSync("frontoffice/frontoffice.mustache").toString();
