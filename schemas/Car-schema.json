@@ -1,0 +1,14 @@
+{
+    "title": "Car",
+    "table": "Cars",
+    "type": "object",
+    "properties": {
+        "id": {
+            "type": "number",
+            "columnName": "car_id",
+            "label": "Identifier"
+        }
+    },
+    "props": "",
+    "required": []
+}

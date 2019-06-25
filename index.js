@@ -9,6 +9,8 @@ var path = require('path');
 var async = require('async');
 var bodyParser = require('body-parser');
 var jsonParser = bodyParser.json();
+
+
 app.use(express.static('public'));
 
 // parse application/x-www-form-urlencoded
@@ -19,6 +21,62 @@ app.use(bodyParser.json())
 
 app.get('/editor',(req, res) => {
     res.sendFile(path.join(__dirname + '/public/editor.html'));
+});
+app.post('/editor',(req,res) => {
+
+    //Parse body
+    const body = req.body;
+    var properties = {};
+    var props = "";
+    var requiredArr = [];
+    let keys = Object.keys(body);
+    keys = keys.splice(2,keys.length-2);
+    
+    //Add Id field
+    properties.id = {
+        type: "number",
+        columnName: body.title.toLowerCase()+"_id",
+        label: "Identifier",
+    }
+
+    for (let i = 0; i < keys.length; i++) {
+        const name = body[keys[4*i]];
+        const required = keys[4*i+1];
+        const label = body[keys[4*i+2]];
+        const type = body[keys[4*i+3]];
+        if(!name || !label || !type) break;;
+        if(required){
+            requiredArr.push(name);
+        }
+        props +=name+",";
+        properties[name] = {
+            type: type,
+            columnName: body.title.toLowerCase()+'_'+name,
+            label: label,
+        }
+    }
+    
+    if(Object.keys(properties).length <= 1){
+        res.send("Invalid Schema");
+        return;
+    }
+
+    var schema = {
+        title: body.title,
+        table: body.table,
+        type: 'object',
+        properties: properties,
+        props: props.slice(0,props.length-1),
+        required: requiredArr,
+    }
+
+    //Save to JSON
+    fs.writeFileSync('./schemas/'+body.title+"-schema.json",JSON.stringify(schema, null, 4));
+
+    console.log(schema);
+
+
+    res.sendStatus(200);
 });
 
 app.post('/startServer', (req, res) => {

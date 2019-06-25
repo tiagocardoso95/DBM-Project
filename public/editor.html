@@ -35,17 +35,19 @@
     </nav>
 
     <div class="jumbotron">
-        <h1>SOON</h1>
-        <h1>SOON</h1>
-        <h1>SOON</h1>
-        <h1>SOON</h1>
-        <h1>SOON</h1>
-        <h1>SOON</h1>
-        <h1>SOON</h1>
-        <h1>SOON</h1>
-        <h1>SOON</h1>
-        <h1>SOON</h1>
-        <h1>SOON</h1>
+        <form method="POST" action="/editor">
+            <label>Schema Title</label><br>
+            <input type="text" name="title" ><br>
+            <label>Table Name</label><br>
+            <input type="text" name="table" ><br>
+            <label>Properties:</label><br>
+            <div class="properties">
+
+            </div>
+            <input type="submit" value="Sumbit Schema" />
+        </form>
+        
+        <button onclick="addProperty()">Add property</button>
     </div>
 
 </body>
@@ -58,6 +60,20 @@
 </html>
 
 <script>
+    var propCount = 0;
+    function addProperty(){
+        propCount++;
+        $('.properties').append("<div id='prop"+propCount+"' class='property'><h4>Property "+propCount+"\t<button type='button' onclick='removeProp(`prop"+propCount+"`)' >X</button></h4><label>Prop Name: </label><br/>"
+        +" <input name='propname_"+propCount+"' type='text'/><label>Required: </label><input name='proprequired_"+propCount+"' type='checkbox' /><br/>"
+        +" <label>Prop Label: </label><br/><input name='proplabel_"+propCount+"' type='text'/><br/>"
+        +"<label>Type: </label><br/><select name='propType_"+propCount+"'><option>string</option><option>number</option><option>date</option></select> </div>");
+    }
+
+    function removeProp(id){
+        $("#"+id).remove();
+        propCount--;
+    }
+
 
 </script>
 
@@ -77,6 +93,23 @@
 
     body {
         margin: 0 0 50px;
+    }
+    .property{
+        background: white;
+        border-radius: 10px;
+        margin-left: 10px;
+        margin-right: 10px;
+        margin-bottom: 5px;
+        margin-top: 5px;
+    }
+    .properties {
+        background: lightgrey;
+        border-radius: 10px;
+        margin-top: 10px;
+        padding-left: 10px;
+        padding-top: 15px;
+        padding-bottom: 10px;
+        width: 25%;
     }
 
     .jumbotron {
