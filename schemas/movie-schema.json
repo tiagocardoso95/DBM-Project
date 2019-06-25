@@ -39,7 +39,7 @@
         "model": "Director",
         "relation": "M-M",
         "columnName": "director_id",
-        "tableName": "Directors" 
+        "tableName": "Directors"
     },{
         "model": "Actor",
         "relation": "M-M",

@@ -13,56 +13,6 @@
         integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <title>{{title}}</title>    
-        <script>
-            {{#hasReferences}}
-            function loadValues(model,values,label,controlId,relatedModel){
-                var xhr = new XMLHttpRequest();
-
-                var id = "";
-                var val = "";
-
-                if(values){
-                    id = values.slice(-1);
-                    val = values.slice(0, -1) + "/";
-                }else{
-                    val = "";
-                }
-
-                xhr.open("GET", "/api/"+val+""+model+"/"+id, true);
-                console.log("/api/"+val+""+model+"/"+id);
-                xhr.onreadystatechange = function () {
-                    if(xhr.readyState === 4 && xhr.status === 200) {
-                        var control = document.getElementById(controlId);
-                        var response = JSON.parse(this.responseText);
-                        console.log(response);
-
-                        if(response.constructor === Array){
-                            control.innerHTML = response.map(row => {
-                                //console.log("ROW:"+JSON.parse(JSON.stringify(row)));
-                                //console.log("LABEL:"+label); 
-                                return row[label] 
-                            }).join();
-                            
-                        }else{
-                            control.innerHTML = response[label];
-                        }
-                    }  
-                }
-                xhr.send();
-            }
-
-            window.onload = function() {
-                {{#references}}
-                loadValues('{{model}}','{{values}}','{{label}}','label{{model}}value');
-                {{/references}}
-            }
-            {{/hasReferences}}
-
-            function goBack(){
-                var title = '{{title}}'.slice(0,-1);
-                window.location.href = "/backoffice/"+title;
-            }
-        </script>
     </head>
 
     <nav>
@@ -72,7 +22,7 @@
     </nav>
     <h4 id="title">{{title}}</h4>
     <div style="clear:'left'"></div>
-    <body>
+    <body style="margin-bottom:5%";>
         <button style="margin:15px;" class="btn btn-primary" onclick="goBack()">Go Back</button>   
 
         {{#properties}}        
@@ -80,10 +30,11 @@
             <h3>{{name}}: {{value}}</h3>                  
         </div>        
         {{/properties}}
+        
+        <br>
 
-        {{#references}}
-            <label>{{model}}:</label>
-            <label id="label{{model}}value"></label>
+        {{#references}} 
+            <h5>{{value}}</h5>
         {{/references}}   
     </body>
 
@@ -91,6 +42,13 @@
         <div class="text-center">© 2019 {{title}}</div>
     </footer>
  </html>
+
+ <script>
+  function goBack(){
+    var title = '{{title}}'.slice(0,-1);
+    window.location.href = "/backoffice/"+title;
+  }
+ </script>
 
  <style>
 #title {
