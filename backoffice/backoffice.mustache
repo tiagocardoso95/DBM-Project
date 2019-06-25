@@ -64,6 +64,7 @@ router.get('/{{schemaName}}/detalhe/:id', function(req, res){
     var schema = JSON.parse(fs.readFileSync("Schemas/" + "{{{schemaName}}}".toLowerCase()+ "-schema.json"));
     {{schemaName}}.get(req.params.id, function(rows){
         res.render('details', {
+            title: '{{schemaName}}s',
             properties: function () {
                 var data = JSON.parse(JSON.stringify(rows[0]));
                 var allProps = Object.getOwnPropertyNames(data);
@@ -118,6 +119,7 @@ router.get('/{{schemaName}}/editar/:id', function(req, res){
                         }
                     })
             res.render('form', {
+                title: '{{schemaName}}s',
                     method: 'POST',
                 schemaName: '{{schemaName}}',
                 properties: props[0].values,
@@ -132,6 +134,7 @@ router.get('/{{schemaName}}/insert', function (req, res){
     var keys = Object.keys(schema.properties);
     
     res.render('form',{
+        title: '{{schemaName}}s',
         method: 'POST',
         schemaName: '{{schemaName}}',
         properties: keys.map(elem => {

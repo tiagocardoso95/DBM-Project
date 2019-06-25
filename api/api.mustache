@@ -23,12 +23,10 @@ router.post('/{{schemaName}}', function(req, res){
     });
     
     const { {{schemaProps}} } = obj;
-
     var newData = new {{schemaName}}(undefined,{{schemaProps}});
         newData.save(function(){
         console.log("Data Inserted!");
     });
-    res.sendStatus(200);
 });
 
 router.post('/{{schemaName}}/:id', function(req, res){
@@ -39,12 +37,10 @@ router.post('/{{schemaName}}/:id', function(req, res){
     });
     
     const { {{schemaProps}} } = obj;
-    console.log(obj);
     var newData = new {{schemaName}}(req.params.id,{{schemaProps}});
         newData.save(function(){
         console.log("Data Updated!");
     });
-    res.sendStatus(200);
 });
 
 router.delete('/{{schemaName}}/:id', function(req, res){

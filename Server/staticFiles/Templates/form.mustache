@@ -1,16 +1,112 @@
 <html>
+    <head> 
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous">
+    </script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous">
+    </script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+    <title>{{title}}</title>    
+    </head>
+    <nav>
+        <ul id="navbar">
+            <li><a href="/">Home</a></li>
+        </ul>
+    </nav>
+    <h4 id="title">{{title}}</h4>
+    <div style="clear:'left'"></div>
+
     <body>
+         <button style="margin:15px;" class="btn btn-primary" onclick="goBack()">Go Back</button>
+
         <form method="{{method}}" action="/api/{{schemaName}}/{{id}}">
         {{#properties}}
-            <div>
+            <div style="margin:15px;">
                     
-                <label {{hidden}}>{{name}}:</label>            
-                <input type="{{typeInput}}" {{hidden}} name="{{name}}" value="{{value}}"/>
+                <label {{hidden}}>{{name}}</label>            
+                <input style="width:50%;" class="form-control form-control-lg" type="{{typeInput}}" {{hidden}} name="{{name}}" value="{{value}}"/>
                 <br>
                  
             </div>        
         {{/properties}}
-        <input type="submit" value="Submit"/> 
+        <input style="margin:15px;" class="btn btn-primary" type="submit" value="Submit"/> 
         </form>
     </body>
+
+    <footer>
+        <div class="text-center">© 2019 {{title}}</div>
+    </footer>
 </html>
+
+<script>
+function goBack(){
+    var title = '{{title}}'.slice(0,-1);
+    window.location.href = "/backoffice/"+title;
+}
+
+</script>
+
+<style>
+#title {
+    display: block;
+    margin-top: 0px;
+    color: white;
+
+    text-align: center;
+
+    padding: 14px 16px;
+
+    text-decoration: none;
+
+    background-color: #333;
+}
+#navbar {
+  float:left;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #333;
+}
+
+#navbar > li {
+  float: left;
+}
+
+#navbar > li a {
+  display: block;
+  color: white;
+  text-align: center;
+  padding: 16px 16px;
+  text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+#navbar > li a:hover {
+  background-color: #111;
+}
+
+footer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  overflow: hidden;
+  background-color: #333;
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+.text-center{
+  color: white;
+}
+</style>
