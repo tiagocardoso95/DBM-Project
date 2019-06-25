@@ -61,24 +61,42 @@ router.get('/{{schemaName}}', function(req, res){
 });
 
 router.get('/{{schemaName}}/detalhe/:id', function(req, res){
+    var schema = JSON.parse(fs.readFileSync("Schemas/" + "{{{schemaName}}}".toLowerCase()+ "-schema.json"));
     {{schemaName}}.get(req.params.id, function(rows){
-        if(rows){
-            var schema = JSON.parse(fs.readFileSync("Schemas/" + "{{{schemaName}}}".toLowerCase()+ "-schema.json"));
-            res.render('details', {
-                properties: rows.map(obj => {
-                        return {
-                             values: Object.keys(obj).map(key => {
-                                return {
-                                    name: getPropertyLabel(schema,key),
-                                    value: obj[key]
-                            }
-                        })
-                    }
-                })
+        res.render('details', {
+            properties: function () {
+                var allProps = Object.getOwnPropertyNames(rows);
+                var validProps = [];
+                allProps.forEach(function (prop) {
+                    if (schema.properties.hasOwnProperty(prop)){
+                    validProps.push({
+                        name: prop,
+                        value: rows[prop]
+                    });
+                }  
             });
-        }
+            return validProps;
+            },
+            references: function () {
+                var allRefs = [];
+                if (schema.references){
+                    schema.references.forEach(function (ref) {
+                        allRefs.push({
+                            label: ref.label,
+                            model: "{{schemaName}}",
+                            values: ref.relation === "M-M" ? ref.model + '/' +  req.params.id : rows[(ref.model + "_id").toLowerCase()] 
+                        });
+                    });
+                }
+                return allRefs;
+            },
+            get hasReferences(){
+                return this.references().length > 0;
+            }
+        })
     });
 });
+
 
 router.get('/{{schemaName}}/editar/:id', function(req, res){
     {{schemaName}}.get(req.params.id, function(rows){

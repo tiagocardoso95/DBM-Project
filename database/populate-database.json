@@ -62,5 +62,55 @@
             "movie_length": "180",
             "category_id": 3
         }
+    ],
+    "actors_movies":[
+        {
+            "actor_id": 1,
+            "movie_id": 1
+        },
+        {
+            "actor_id": 2,
+            "movie_id": 1
+        },
+        {
+            "actor_id": 3,
+            "movie_id": 1
+        },
+        {
+            "actor_id": 4,
+            "movie_id": 2
+        },
+        {
+            "actor_id": 5,
+            "movie_id": 2
+        }
+    ],
+    "directors":[
+        {
+            "director_id": 1,
+            "director_name": "Director 1",
+            "director_dateOfBirth": "1990-10-5" 
+
+        },
+        {
+            "director_id": 2,
+            "director_name": "Director 2",
+            "director_dateOfBirth": "1975-5-16" 
+        },
+        {
+            "director_id": 3,
+            "director_name": "Director 3",
+            "director_dateOfBirth": "1984-4-12" 
+        },
+        {
+            "director_id": 4,
+            "director_name": "Director 4",
+            "director_dateOfBirth": "1992-11-11" 
+        },
+        {
+            "director_id": 5,
+            "director_name": "Director 5",
+            "director_dateOfBirth": "1991-2-15" 
+        }
     ]
 }

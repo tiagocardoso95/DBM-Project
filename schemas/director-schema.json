@@ -14,7 +14,7 @@
             "label": "Name" 
         },
         "dateOfBirth": {
-            "type": "string",
+            "type": "date",
             "columnName": "director_dateOfBirth",
             "label": "Date of Birth" 
         }

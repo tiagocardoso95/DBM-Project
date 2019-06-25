@@ -173,6 +173,8 @@ module.exports = {
         var actors = data.actors;
         var categories = data.categories;
         var movies = data.movies;
+        var actors_movies = data.actors_movies;
+        var directors = data.directors;
 
         for(var i=0; i<categories.length; i++){
             db.run("INSERT INTO Categories(category_name) VALUES (?)",[categories[i].category_name], function(err){
@@ -193,6 +195,22 @@ module.exports = {
 
         for(var i=0; i<actors.length; i++){
             db.run("INSERT INTO Actors(actor_name,actor_dateOfBirth) VALUES (?,?)",[actors[i].actor_name,actors[i].actor_dateOfBirth], function(err){
+                if (err) {
+                    return;
+                  }
+            });
+        }
+
+        for(var i=0; i<actors_movies.length; i++){
+            db.run("INSERT INTO Actors_Movies(actor_id,movie_id) VALUES (?,?)",[actors_movies[i].actor_id,actors_movies[i].movie_id], function(err){
+                if (err) {
+                    return;
+                  }
+            });
+        }
+
+        for(var i=0; i<directors.length; i++){
+            db.run("INSERT INTO Directors(director_id,director_name,director_dateOfBirth) VALUES (?,?,?)",[directors[i].director_id,directors[i].director_name,directors[i].director_dateOfBirth], function(err){
                 if (err) {
                     return;
                   }
