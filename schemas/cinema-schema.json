@@ -5,7 +5,7 @@
     "properties": {
         "id":{
             "type": "number",
-            "columnName": "category_id",
+            "columnName": "cinema_id",
             "label": "Identifier"   
           },
         "name": {
@@ -15,11 +15,11 @@
         },
         "ticketPrice": {
             "type": "integer",
-            "columnName": "movies_ticketPrice",
+            "columnName": "cinema_movies_ticketPrice",
             "label": "Ticket Price" 
         }
     },
-    "props": "name,movies,ticketPrice",
+    "props": "name,ticketPrice",
     "required": [
         "name"
     ],

@@ -68,7 +68,20 @@
                 <option>Right</option>
             </select>
 
-            <button class="btn btn-primary" onclick="sendAjxRquest()">Start Generated Server</button>
+            <h5>Website Name</h5>
+            <input class="form-control" id="inputdefault" type="text" name="website-name" value="">
+
+            <button id="submitButton" class="btn btn-primary" style="margin-top:30px;" onclick="sendAjxRquest()">Start
+                Generated
+                Server</button>
+
+            <div id="alertPopup" style="display:none;" class="alert alert-success" role="alert">
+                <h4 class="alert-heading">Done!</h4>
+                <p>Your desired website has been created on our server!</p>
+                <hr>
+                <p class="mb-0">Whenever you're ready, click <a target="_blank" href="http://localhost:8080"
+                        onclick="hideAlert()">here</a>!</p>
+            </div>
         </div>
     </div>
 </body>
@@ -76,6 +89,7 @@
 <footer>
     <div class="text-center">© 2019 DBM <br> Tiago Cardoso & Tiago Gomes</div>
 </footer>
+
 
 </html>
 
@@ -91,18 +105,34 @@
         let menuColorSelect = document.getElementById("menu-color-select");
         var menuColour = menuColorSelect.options[menuColorSelect.selectedIndex].value;
 
-        console.log(option);
+        let websiteNameInput = document.getElementById("inputdefault");
+        var websiteName = websiteNameInput.value;
+
         var body = {
             backgroundColor: option,
             menuPosition: menuPosition,
             menuColour: menuColour,
+            websiteName: websiteName
         }
         $.ajax({
             type: 'POST',
             data: body,
-            url: 'http://localhost:8081/startServer'
+            url: 'http://localhost:8081/startServer',
+            success: function (data) {
+                if (data['success']) {
+                    var alert = document.getElementById('alertPopup');
+                    alert.style.display = "inline-block";
+                }
+            }
         });
+
     }
+
+    function hideAlert() {
+        var alert = document.getElementById('alertPopup');
+        alert.style.display = "none";
+    }
+    
 </script>
 
 <style>
@@ -115,8 +145,12 @@
         border-width: thin;
         cursor: pointer;
         text-align: center;
-
     }
+
+    #name-input {
+        margin-bottom: 50px;
+    }
+
 
     html {
         position: relative;
@@ -158,3 +192,6 @@
         margin-bottom: 10px;
     }
 </style>
+
+<script>
+</script>

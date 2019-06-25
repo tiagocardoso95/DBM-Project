@@ -26,10 +26,11 @@ app.post('/startServer', (req, res) => {
         backgroundColor: req.body.backgroundColor.replace(/ /g,'').toLowerCase(),
         menuPosition: req.body.menuPosition.toLowerCase(),
         menuColour: req.body.menuColour.replace(/ /g,'').toLowerCase(),
+        websiteName: req.body.websiteName
     }
-    console.log(styles);
-    startGeneration(styles);
-    res.sendStatus(200);
+    startGeneration(styles, () => {
+        res.json({success : true});
+    })
 });
 
 
@@ -81,7 +82,7 @@ function startUpGeneratedServer() {
     generatedserver.populateGeneratedBD();
 }
 
-function startGeneration(styles) {
+function startGeneration(styles, cb) {
     console.log("Generation started...")
     async.parallel({
             deleteFolders: function (callback) {
@@ -142,6 +143,6 @@ function startGeneration(styles) {
         },
         function (err, results) {
             console.log("Generation ended...")
+            cb(null);
         });
-
 }

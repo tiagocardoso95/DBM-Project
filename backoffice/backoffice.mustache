@@ -65,13 +65,14 @@ router.get('/{{schemaName}}/detalhe/:id', function(req, res){
     {{schemaName}}.get(req.params.id, function(rows){
         res.render('details', {
             properties: function () {
-                var allProps = Object.getOwnPropertyNames(rows);
+                var data = JSON.parse(JSON.stringify(rows[0]));
+                var allProps = Object.getOwnPropertyNames(data);
                 var validProps = [];
                 allProps.forEach(function (prop) {
                     if (schema.properties.hasOwnProperty(prop)){
                     validProps.push({
-                        name: prop,
-                        value: rows[prop]
+                        name: getPropertyLabel(schema, prop),
+                        value: rows[0][prop]
                     });
                 }  
             });
@@ -84,7 +85,7 @@ router.get('/{{schemaName}}/detalhe/:id', function(req, res){
                         allRefs.push({
                             label: ref.label,
                             model: "{{schemaName}}",
-                            values: ref.relation === "M-M" ? ref.model + '/' +  req.params.id : rows[(ref.model + "_id").toLowerCase()] 
+                            values: ref.relation === "M-M" ? ref.model + '' +  req.params.id : rows[(ref.model + "_id").toLowerCase()] 
                         });
                     });
                 }
@@ -108,7 +109,7 @@ router.get('/{{schemaName}}/editar/:id', function(req, res){
                         return {
                              values: Object.keys(obj).map(key => {
                                 return {
-                                    name: getPropertyLabel(schema,key).replace(/ /g,''),
+                                    name: getPropertyLabel(schema,key),
                                     value: (schema.properties[key].type === 'date') ? new Date(obj[key]).toISOString().substring(0, 10) : obj[key],
                                     typeInput: convertType(schema.properties[key].type),
                                     hidden: (key === 'id') ? 'hidden' : '',
@@ -116,7 +117,6 @@ router.get('/{{schemaName}}/editar/:id', function(req, res){
                             })
                         }
                     })
-            console.log(props);
             res.render('form', {
                     method: 'POST',
                 schemaName: '{{schemaName}}',
@@ -136,7 +136,7 @@ router.get('/{{schemaName}}/insert', function (req, res){
         schemaName: '{{schemaName}}',
         properties: keys.map(elem => {
             return {
-                name: schema.properties[elem].label.replace(/ /g,''),
+                name: schema.properties[elem].label,
                 value: undefined,
                 typeInput: convertType(schema.properties[elem].type),
                 hidden: (elem === 'id') ? 'hidden' : '',

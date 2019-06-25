@@ -175,9 +175,20 @@ module.exports = {
         var movies = data.movies;
         var actors_movies = data.actors_movies;
         var directors = data.directors;
+        var directors_movies = data.directors_movies;
+        var cinemas = data.cinemas;
+        var cinemas_movies = data.cinemas_movies;
 
         for(var i=0; i<categories.length; i++){
             db.run("INSERT INTO Categories(category_name) VALUES (?)",[categories[i].category_name], function(err){
+                if (err) {
+                    return;
+                  }
+            });
+        }
+
+        for(var i=0; i<cinemas.length; i++){
+            db.run("INSERT INTO Cinemas(cinema_id,cinema_name,cinema_movies_ticketPrice) VALUES (?,?,?)",[cinemas[i].cinema_id,cinemas[i].cinema_name,cinemas[i].cinema_movies_ticketPrice], function(err){
                 if (err) {
                     return;
                   }
@@ -211,6 +222,22 @@ module.exports = {
 
         for(var i=0; i<directors.length; i++){
             db.run("INSERT INTO Directors(director_id,director_name,director_dateOfBirth) VALUES (?,?,?)",[directors[i].director_id,directors[i].director_name,directors[i].director_dateOfBirth], function(err){
+                if (err) {
+                    return;
+                  }
+            });
+        }
+
+        for(var i=0; i<directors_movies.length; i++){
+            db.run("INSERT INTO Directors_Movies(director_id,movie_id) VALUES (?,?)",[directors_movies[i].director_id,directors_movies[i].movie_id], function(err){
+                if (err) {
+                    return;
+                  }
+            });
+        }
+
+        for(var i=0; i<cinemas_movies.length; i++){
+            db.run("INSERT INTO Cinemas_Movies(cinema_id,movie_id) VALUES (?,?)",[cinemas_movies[i].cinema_id,cinemas_movies[i].movie_id], function(err){
                 if (err) {
                     return;
                   }

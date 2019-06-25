@@ -16,7 +16,7 @@
         "dateOfBirth": {
             "type": "date",
             "columnName": "actor_dateOfBirth",
-            "label": "date of birth"  
+            "label": "Date of Birth"  
         }
     },
     "props": "name,dateofbirth",

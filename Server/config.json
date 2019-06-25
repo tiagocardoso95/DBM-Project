@@ -6,7 +6,7 @@
     },
     "dbName": "project_db.db",
     "schemaFolder": "./schemas",
-    "siteTitle": "Movie Base",
+    "siteTitle": "Cinema Website",
     "staticFiles": [
         {
             "originalPath": "./database/sqlitedbm.js",

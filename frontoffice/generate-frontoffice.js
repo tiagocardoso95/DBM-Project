@@ -7,11 +7,11 @@ var config = require('../Server/config.json');
 function generateFrontOffice(schemas,styleConfig){ 
         let schemaNames = [];
         schemas.forEach(elem => {
-            schemaNames.push({name: elem.schema.title,href: "/"+elem.schema.title});
+            schemaNames.push({name: elem.schema.title,href: "/backoffice/"+elem.schema.title});
         });
         var view = {
             schemas: schemaNames,
-            title: config.siteTitle,
+            title: styleConfig.websiteName ? styleConfig.websiteName : config.siteTitle,
             background: styleConfig.backgroundColor,
             menuPosition: styleConfig.menuPosition,
             menuColour: styleConfig.menuColour,
