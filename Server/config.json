@@ -43,6 +43,14 @@
         {
             "originalPath": "Server/staticFiles/Templates/form.mustache",
             "destinationPath": "./publish/Views/form.mustache"
+        },
+        {
+            "originalPath": "public/Images/BackGround1.jpg",
+            "destinationPath": "./publish/Public/Images/BackGround1.jpg"
+        },
+        {
+            "originalPath": "public/Images/BackGround2.jpg",
+            "destinationPath": "./publish/Public/Images/BackGround2.jpg"
         }
         
     ]
