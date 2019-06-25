@@ -14,12 +14,12 @@
             "label": "Name"  
         },
         "dateOfBirth": {
-            "type": "string",
+            "type": "date",
             "columnName": "actor_dateOfBirth",
-            "label": "Date of Birth"  
+            "label": "date of birth"  
         }
     },
-    "props": "name,dateOfBirth",
+    "props": "name,dateofbirth",
     "required": [
         "name",
         "dateOfBirth"
