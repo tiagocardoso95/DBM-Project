@@ -35,19 +35,25 @@
     </nav>
 
     <div class="jumbotron">
-        <form method="POST" action="/editor">
+        <form method="POST" action="/editor" id="theForm">
             <label>Schema Title</label><br>
-            <input type="text" name="title" ><br>
+            <input id="schemaTitle" type="text" name="title"><br>
             <label>Table Name</label><br>
-            <input type="text" name="table" ><br>
+            <input id="schemaTableName" type="text" name="table"><br>
             <label>Properties:</label><br>
             <div class="properties">
-
             </div>
-            <input type="submit" value="Sumbit Schema" />
+
+            <button type="submit">Submit Schema</button>
+
         </form>
-        
+
         <button onclick="addProperty()">Add property</button>
+
+        <input id="chooseFile" style="display:none;" type="file" accept=".json" />
+
+        <button onclick="importSchema()">Import Schema</button>
+
     </div>
 
 </body>
@@ -61,20 +67,95 @@
 
 <script>
     var propCount = 0;
-    function addProperty(){
+
+    function addProperty() {
         propCount++;
-        $('.properties').append("<div id='prop"+propCount+"' class='property'><h4>Property "+propCount+"\t<button type='button' onclick='removeProp(`prop"+propCount+"`)' >X</button></h4><label>Prop Name: </label><br/>"
-        +" <input name='propname_"+propCount+"' type='text'/><label>Required: </label><input name='proprequired_"+propCount+"' type='checkbox' /><br/>"
-        +" <label>Prop Label: </label><br/><input name='proplabel_"+propCount+"' type='text'/><br/>"
-        +"<label>Type: </label><br/><select name='propType_"+propCount+"'><option>string</option><option>number</option><option>date</option></select> </div>");
+        $('.properties').append("<div id='prop" + propCount + "' class='property'><h4>Property " + propCount +
+            "\t<button type='button' onclick='removeProp(`prop" + propCount +
+            "`)' >X</button></h4><label>Prop Name: </label><br/>" +
+            " <input id='propName' name='propname_" + propCount +
+            "' type='text'/><label>Required: </label><input name='proprequired_" + propCount +
+            "' type='checkbox' /><br/>" +
+            " <label>Prop Label: </label><br/><input id='propLabel' name='proplabel_" + propCount +
+            "' type='text'/><br/>" +
+            "<label>Type: </label><br/><select name='propType_" + propCount +
+            "'><option>string</option><option>number</option><option>date</option></select> </div>");
     }
 
-    function removeProp(id){
-        $("#"+id).remove();
+    function removeProp(id) {
+        $("#" + id).remove();
         propCount--;
     }
 
+    function populateFields() {
+        var fileInput = document.getElementById("chooseFile");
+        var selectedFile = fileInput.files[0];
+        var fr = new FileReader();
+        fr.onload = function (e) {
+            // e.target.result should contain the text
+            var schema = JSON.parse(e.target.result);
+            document.getElementById("schemaTitle").value = schema.title;
+            document.getElementById("schemaTableName").value = schema.table;
+            var props = [];
+            var propsName = [];
+            Object.keys(schema.properties).map(function (e) {
+                if (e != 'id') {
+                    props.push(schema.properties[e]);
+                    propsName.push(e);
+                }
+            });
 
+            for (var i = 0; i < props.length; i++) {
+                propCount++;
+                var propNameID = "name" + i;
+                var propLabelID = "label" + i;
+                var propTypeID = "type" + i;
+                var propReqID = "req" + i;
+
+
+                $('.properties').append("<div id='prop" + propCount +
+                    "' class='property'><h4>Property " +
+                    propCount +
+                    "\t<button type='button' onclick='removeProp(`prop" + propCount +
+                    "`)' >X</button></h4><label>Prop Name: </label><br/>" +
+                    " <input id=" + propNameID + " name='propname_" + propCount +
+                    "' type='text'/><label>Required: </label><input id=" + propReqID +
+                    " name='proprequired_" + propCount +
+                    "' type='checkbox' /><br/>" +
+                    " <label>Prop Label: </label><br/><input id=" + propLabelID +
+                    " name='proplabel_" +
+                    propCount + "' type='text'/><br/>" +
+                    "<label>Type: </label><br/><select id=" + propTypeID +
+                    " name='propType_" + propCount +
+                    "'><option>string</option><option>number</option><option>date</option></select> </div>"
+                );
+
+                if (schema.required.indexOf(propsName[i]) > -1) {
+                    document.getElementById(propReqID).checked = true;
+                }
+                document.getElementById(propNameID).value = propsName[i];
+                document.getElementById(propLabelID).value = props[i].label;
+                SelectElement(propTypeID, props[i].type);
+            }
+
+
+        };
+        fr.readAsText(selectedFile);
+    }
+
+    function SelectElement(id, valueToSelect) {
+        var element = document.getElementById(id);
+        element.value = valueToSelect;
+    }
+
+    function importSchema() {
+        var input = document.getElementById("chooseFile");
+        input.style.display = "block";
+    }
+
+    $("#chooseFile").change(function () {
+        populateFields();
+    });
 </script>
 
 <style>
@@ -91,10 +172,15 @@
         overflow: hidden;
     }
 
+    button {
+        margin: 10px;
+    }
+
     body {
         margin: 0 0 50px;
     }
-    .property{
+
+    .property {
         background: white;
         border-radius: 10px;
         margin-left: 10px;
@@ -102,6 +188,7 @@
         margin-bottom: 5px;
         margin-top: 5px;
     }
+
     .properties {
         background: lightgrey;
         border-radius: 10px;

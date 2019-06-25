@@ -27,6 +27,7 @@ router.post('/{{schemaName}}', function(req, res){
         newData.save(function(){
         console.log("Data Inserted!");
     });
+    res.redirect('/backoffice/{{schemaName}}');
 });
 
 router.post('/{{schemaName}}/:id', function(req, res){
@@ -41,6 +42,7 @@ router.post('/{{schemaName}}/:id', function(req, res){
         newData.save(function(){
         console.log("Data Updated!");
     });
+    res.redirect('/backoffice/{{schemaName}}');
 });
 
 router.delete('/{{schemaName}}/:id', function(req, res){
