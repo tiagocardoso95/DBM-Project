@@ -54,4 +54,10 @@ router.delete('/{{schemaName}}/:id', function(req, res){
     res.sendStatus(200);  
 });
 
+router.get('/{{schemaName}}/:model/:id', function(req, res) {
+    {{schemaName}}.many(req.params.model, req.params.id, function (rows){
+        res.json(rows);
+    });
+});
+
 module.exports = router;
