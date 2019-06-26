@@ -187,8 +187,13 @@ function getReferences(schemaName,id,callback) {
     var referenceWrapper = [];
     var filtered = schema.references.filter(e => e.model !== 'M-M');
     schema.references = filtered;
+    let iterations = 1;
     if(schema.references){
-        for(var i=0; i<schema.references.length; i++){
+        for(var i=0; i<iterations; i++){
+            if(schema.references[i].relation === '1-M'){
+                iterations++;
+                continue;
+            }
             allRefs = [];     
             if(schema.references[i].relation === 'M-M'){
                 var name = eval(schema.references[i].model);
