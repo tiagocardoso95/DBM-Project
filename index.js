@@ -69,14 +69,9 @@ app.post('/editor',(req,res) => {
         props: props.slice(0,props.length-1),
         required: requiredArr,
     }
-
     //Save to JSON
-    fs.writeFileSync('./schemas/'+body.title+"-schema.json",JSON.stringify(schema, null, 4));
-
-    console.log(schema);
-
-
-    res.sendStatus(200);
+    fs.writeFileSync('./schemas/'+body.title+"-schema.json",JSON.stringify(schema, null, 4))
+    res.redirect('/');
 });
 
 app.post('/startServer', (req, res) => {
