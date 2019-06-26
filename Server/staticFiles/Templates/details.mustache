@@ -32,10 +32,13 @@
         {{/properties}}
         
         <br>
+        {{#referenceWrapper}}
+          <h3>{{refName}}</h3>
+          {{#references}} 
+            <h5>{{name}} - {{value}}</h5>
+          {{/references}}   
+        {{/referenceWrapper}}
 
-        {{#references}} 
-            <h5>{{value}}</h5>
-        {{/references}}   
     </body>
 
     <footer>
