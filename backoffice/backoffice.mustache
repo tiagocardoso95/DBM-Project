@@ -67,6 +67,31 @@ router.get('/{{schemaName}}/detalhe/:id', function(req, res){
     var allRefs = [];
     var referenceWrapper = [];
     if(schema.references){
+        getReferences(schema.title,req.params.id,(wrapper => {
+
+        console.log(wrapper);
+        {{schemaName}}.get(req.params.id, function(rows){
+        res.render('details', {
+            title: '{{schemaName}}s',
+            properties: function () {
+                var data = JSON.parse(JSON.stringify(rows[0]));
+                var allProps = Object.getOwnPropertyNames(data);
+                var validProps = [];
+                allProps.forEach(function (prop) {
+                    if (schema.properties.hasOwnProperty(prop)){
+                    validProps.push({
+                        name: getPropertyLabel(schema, prop),
+                        value: rows[0][prop]
+                    });
+                }  
+            });
+            return validProps;
+            },
+            referenceWrapper: wrapper
+        })
+    });
+        }))
+        /*
         for(var i=0; i<schema.references.length; i++){    
             if(schema.references[i].relation === 'M-M'){
                 var name = eval(schema.references[i].model);
@@ -100,27 +125,9 @@ router.get('/{{schemaName}}/detalhe/:id', function(req, res){
             }
                  
         }
+        */
     }
-    {{schemaName}}.get(req.params.id, function(rows){
-        res.render('details', {
-            title: '{{schemaName}}s',
-            properties: function () {
-                var data = JSON.parse(JSON.stringify(rows[0]));
-                var allProps = Object.getOwnPropertyNames(data);
-                var validProps = [];
-                allProps.forEach(function (prop) {
-                    if (schema.properties.hasOwnProperty(prop)){
-                    validProps.push({
-                        name: getPropertyLabel(schema, prop),
-                        value: rows[0][prop]
-                    });
-                }  
-            });
-            return validProps;
-            },
-            referenceWrapper: referenceWrapper
-        })
-    });
+    
 });
 
 router.get('/{{schemaName}}/editar/:id', function(req, res){
@@ -174,45 +181,49 @@ router.get('/{{schemaName}}/insert', function (req, res){
 
 {{/schemas}}
 
-function getReferences(schemaName,id) {
-    var schema = JSON.parse(fs.readFileSync("Schemas/" + schemaName.toLowerCase()+ "-schema.json"));
+function getReferences(schemaName,id,callback) {
+   var schema = JSON.parse(fs.readFileSync("Schemas/" + schemaName.toLowerCase()+ "-schema.json"));
     var allRefs = [];
-    for(var i=0; i<schema.references.length; i++){
+    var referenceWrapper = [];
+    var filtered = schema.references.filter(e => e.model !== 'M-M');
+    schema.references = filtered;
+    if(schema.references){
+        for(var i=0; i<schema.references.length; i++){
+            allRefs = [];     
             if(schema.references[i].relation === 'M-M'){
                 var name = eval(schema.references[i].model);
-                var refSchema = JSON.parse(fs.readFileSync("Schemas/" +schema.references[i].model.toLowerCase()+ "-schema.json"));
-                let refKeys = Object.keys(refSchema.properties); 
-                
+                var model = schema.references[i].model; 
                 name.many(schema.title, id, function(rows){
-                    console.log("ID",rows[0][refKeys[0]]);
-                    if(refSchema.references){
-                     var subRefs = getReferences(refSchema.title,rows[0][0]); 
-                     console.log("sub refs",subRefs);
-                    }
+                    var refSchema = JSON.parse(fs.readFileSync("Schemas/" +model.toLowerCase()+ "-schema.json"));
+                    let refKeys = Object.keys(refSchema.properties);
                     for(var j=0; j<rows.length; j++){
                         var data = JSON.parse(JSON.stringify(rows[j]));
                         var allProps = Object.getOwnPropertyNames(data);
                         //console.log("DATA:"+JSON.stringify(rows[j]));
                         var iterations = refKeys.length ;
-                        console.log(iterations);
+                        //console.log(iterations);
                         for(var k=0; k<iterations; k++){
                             if(refKeys[k] != "id"){
                                 //console.log(refSchema.properties[refKeys[k]]);
-                                if(subRefs){
-                                    allRefs.push(subRefs[k]);
-                                }
                                 allRefs.push({
                                     value: rows[j][refKeys[k]],
                                     name: refSchema.properties[refKeys[k]].label,
                                 })
                             }
                         }
-                        console.log("Allrefs",allRefs);
-                }})
-            }                   
+                    }
+                         
+                })
+                  referenceWrapper.push( {
+                        refName: model,
+                        references: allRefs,
+                  })               
+             }
+            
+                
         }
-    //console.log("ALL REFS",allRefs);
-    return allRefs;
+    }
+    callback(referenceWrapper);
 }
 
 

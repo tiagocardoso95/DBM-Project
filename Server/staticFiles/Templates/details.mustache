@@ -33,11 +33,15 @@
         
         <br>
         {{#referenceWrapper}}
+        <div class="refHolder">
           <h3 style="font-weight:bold;">{{refName}}</h3>
+          <div class="ref2">
           {{#references}} 
-            <h5>{{name}}: {{value}}</h5>
+            <h5 class="refAtt">{{name}}:</h5> <h5 class="refVal">{{value}}</h5><br/>
           {{/references}}
-          <br>   
+          </div>
+          <br> 
+        </div>  
         {{/referenceWrapper}}
 
     </body>
@@ -55,6 +59,28 @@
  </script>
 
  <style>
+.refHolder {
+  background: lightgray;
+
+border-radius: 10px;
+
+width: 50%;
+}
+
+.refAtt {
+  display: inline;
+  margin-bottom: 10px;
+}
+
+.refVal {
+  display: inline;
+  margin-bottom: 10px;
+}
+.ref2{
+  background: white;
+  border-radius: 10px;
+}
+
 #title {
     display: block;
     margin-top: 0px;
