@@ -23,5 +23,11 @@
     "required": [
         "name",
         "dateOfBirth"
-    ]
+    ],
+    "references": [{
+        "model": "Movie",
+        "relation": "M-M",
+        "columnName": "movie_id",
+        "tableName": "Movies"
+    }]
 }

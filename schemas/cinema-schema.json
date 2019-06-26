@@ -16,7 +16,7 @@
         "ticketPrice": {
             "type": "integer",
             "columnName": "cinema_movies_ticketPrice",
-            "label": "Ticket Price" 
+            "label": "Ticket Price(€)" 
         }
     },
     "props": "name,ticketPrice",

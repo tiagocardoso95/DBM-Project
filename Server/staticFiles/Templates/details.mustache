@@ -33,10 +33,11 @@
         
         <br>
         {{#referenceWrapper}}
-          <h3>{{refName}}</h3>
+          <h3 style="font-weight:bold;">{{refName}}</h3>
           {{#references}} 
-            <h5>{{name}} - {{value}}</h5>
-          {{/references}}   
+            <h5>{{name}}: {{value}}</h5>
+          {{/references}}
+          <br>   
         {{/referenceWrapper}}
 
     </body>
@@ -110,4 +111,9 @@ html {
 .text-center{
   color: white;
 }
+
+h3, h5{
+  margin-left: 1%;
+}
+
 </style>

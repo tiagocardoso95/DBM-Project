@@ -70,9 +70,10 @@ router.get('/{{schemaName}}/detalhe/:id', function(req, res){
         for(var i=0; i<schema.references.length; i++){    
             if(schema.references[i].relation === 'M-M'){
                 var name = eval(schema.references[i].model);
-                var refSchema = JSON.parse(fs.readFileSync("Schemas/" +schema.references[i].model.toLowerCase()+ "-schema.json"));
-                let refKeys = Object.keys(refSchema.properties); 
+                var model = schema.references[i].model; 
                 name.many(schema.title, req.params.id, function(rows){
+                    var refSchema = JSON.parse(fs.readFileSync("Schemas/" +model.toLowerCase()+ "-schema.json"));
+                    let refKeys = Object.keys(refSchema.properties);
                     for(var j=0; j<rows.length; j++){
                         var data = JSON.parse(JSON.stringify(rows[j]));
                         var allProps = Object.getOwnPropertyNames(data);
@@ -89,15 +90,13 @@ router.get('/{{schemaName}}/detalhe/:id', function(req, res){
                             }
                         }
                     }
-                    console.log(i);
                     referenceWrapper.push( {
-                    refName: schema.references[i].model,
-                    references: allRefs,
+                        refName: model,
+                        references: allRefs,
                     })
-                    allRefs = [];
-                
+                    allRefs = [];       
                 })
-                          
+                                
             }
                  
         }

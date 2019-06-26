@@ -45,5 +45,10 @@
         "relation": "M-M",
         "columnName": "actor_id",
         "tableName": "Actors"
+    },{
+        "model": "Cinema",
+        "relation": "M-M",
+        "columnName": "cinema_id",
+        "tableName": "Cinemas"
     }]
 }

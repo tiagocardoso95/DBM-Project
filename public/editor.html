@@ -37,10 +37,10 @@
     <div class="jumbotron">
         <form method="POST" action="/editor" id="theForm">
             <label>Schema Title</label><br>
-            <input id="schemaTitle" type="text" name="title"><br>
+            <input class="form-control" id="schemaTitle" type="text" name="title"><br>
             <label>Table Name</label><br>
-            <input id="schemaTableName" type="text" name="table"><br>
-            <label>Properties:</label><br>
+            <input class="form-control" id="schemaTableName" type="text" name="table"><br>
+            <label>Properties</label><br>
             <div class="properties">
             </div>
 
@@ -67,19 +67,24 @@
 
 <script>
     var propCount = 0;
+    var activeProps = [];
 
     function addProperty() {
         propCount++;
         $('.properties').append("<div id='prop" + propCount + "' class='property'><h4>Property " + propCount +
-            "\t<button type='button' onclick='removeProp(`prop" + propCount +
-            "`)' >X</button></h4><label>Prop Name: </label><br/>" +
-            " <input id='propName' name='propname_" + propCount +
-            "' type='text'/><label>Required: </label><input name='proprequired_" + propCount +
+            "\t<button id='rmvProp' type='button' onclick='removeProp(`prop" + propCount +
+            "`)' >X</button></h4><label>Property Name </label><br/>" +
+            " <input class=form-control form-control-lg id='propName' name='propname_" + propCount +
+            "' type='text'/><label>Required: </label><input class=custom-control custom-checkbox name='proprequired_" + propCount +
             "' type='checkbox' /><br/>" +
-            " <label>Prop Label: </label><br/><input id='propLabel' name='proplabel_" + propCount +
+            " <label>Property Label </label><br/><input class=form-control form-control-lg id='propLabel' name='proplabel_" + propCount +
             "' type='text'/><br/>" +
-            "<label>Type: </label><br/><select name='propType_" + propCount +
+            "<label>Type </label><br/><select class=custom-select custom-select-sm name='propType_" + propCount +
             "'><option>string</option><option>number</option><option>date</option></select> </div>");
+        var prop = {
+            id: "prop"+propCount
+        }
+        activeProps.push(prop);
     }
 
     function removeProp(id) {
@@ -92,7 +97,10 @@
         var selectedFile = fileInput.files[0];
         var fr = new FileReader();
         fr.onload = function (e) {
-            // e.target.result should contain the text
+            for(var i=0; i<activeProps.length; i++){
+                removeProp(activeProps[i].id);
+            }
+            
             var schema = JSON.parse(e.target.result);
             document.getElementById("schemaTitle").value = schema.title;
             document.getElementById("schemaTableName").value = schema.table;
@@ -116,16 +124,16 @@
                 $('.properties').append("<div id='prop" + propCount +
                     "' class='property'><h4>Property " +
                     propCount +
-                    "\t<button type='button' onclick='removeProp(`prop" + propCount +
-                    "`)' >X</button></h4><label>Prop Name: </label><br/>" +
-                    " <input id=" + propNameID + " name='propname_" + propCount +
-                    "' type='text'/><label>Required: </label><input id=" + propReqID +
+                    "\t<button id='rmvProp' type='button' onclick='removeProp(`prop" + propCount +
+                    "`)' >X</button></h4><label>Property Name </label><br/>" +
+                    " <input class=form-control form-control-lg id=" + propNameID + " name='propname_" + propCount +
+                    "' type='text'/><label>Required: </label><input class=custom-control custom-checkbox id=" + propReqID +
                     " name='proprequired_" + propCount +
                     "' type='checkbox' /><br/>" +
-                    " <label>Prop Label: </label><br/><input id=" + propLabelID +
+                    " <label>Property Label </label><br/><input class=form-control form-control-lg id=" + propLabelID +
                     " name='proplabel_" +
                     propCount + "' type='text'/><br/>" +
-                    "<label>Type: </label><br/><select id=" + propTypeID +
+                    "<label>Type </label><br/><select class=custom-select custom-select-sm id=" + propTypeID +
                     " name='propType_" + propCount +
                     "'><option>string</option><option>number</option><option>date</option></select> </div>"
                 );
@@ -182,7 +190,7 @@
 
     .property {
         background: white;
-        border-radius: 10px;
+        border-radius: 5px;
         margin-left: 10px;
         margin-right: 10px;
         margin-bottom: 5px;
@@ -192,15 +200,58 @@
     .properties {
         background: lightgrey;
         border-radius: 10px;
-        margin-top: 10px;
-        padding-left: 10px;
-        padding-top: 15px;
-        padding-bottom: 10px;
-        width: 25%;
+        margin-top: 5px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        width: 50%;
+    }
+
+    .properties .form-control{
+        width: 50%;
+        margin-left: 2%;
+    }
+
+    .properties label{
+        margin-left: 2%;
     }
 
     .jumbotron {
         margin-bottom: 10px;
         padding: 15px;
     }
+
+    .form-control{
+        width: 25%;
+    }
+
+    .form-control{
+        width: 25%;
+    }
+
+    h4{
+        text-align: center;
+    }
+
+    #rmvProp{
+        float: right;
+        border-radius: 15px;
+    }
+
+    input[type="checkbox"], input[type="radio"]{
+        margin: 2%;
+    }
+
+    .custom-control{
+        display: inline-block;
+        min-height: 0.5rem;
+    }
+
+    select{
+      margin-left: 2%;
+      margin-bottom: 2%;
+    }
+
+    .custom-select{
+        width: 50%;
+    }   
 </style>
