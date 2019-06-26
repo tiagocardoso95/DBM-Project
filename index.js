@@ -75,7 +75,6 @@ app.post('/editor',(req,res) => {
 });
 
 app.post('/startServer', (req, res) => {
-    console.log(req.body);
     var styles = {
         backgroundColor: req.body.backgroundColor.replace(/ /g,'').toLowerCase(),
         menuPosition: req.body.menuPosition.toLowerCase(),

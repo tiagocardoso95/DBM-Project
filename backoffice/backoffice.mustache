@@ -68,8 +68,6 @@ router.get('/{{schemaName}}/detalhe/:id', function(req, res){
     var referenceWrapper = [];
     if(schema.references){
         getReferences(schema.title,req.params.id,(wrapper => {
-
-        console.log(wrapper);
         {{schemaName}}.get(req.params.id, function(rows){
         res.render('details', {
             title: '{{schemaName}}s',
@@ -102,9 +100,7 @@ router.get('/{{schemaName}}/detalhe/:id', function(req, res){
                     for(var j=0; j<rows.length; j++){
                         var data = JSON.parse(JSON.stringify(rows[j]));
                         var allProps = Object.getOwnPropertyNames(data);
-                        //console.log("DATA:"+JSON.stringify(rows[j]));
                         var iterations = refKeys.length ;
-                        //console.log(iterations);
                         for(var k=0; k<iterations; k++){
                             if(refKeys[k] != "id"){
                                 //console.log(refSchema.properties[refKeys[k]]);
@@ -204,12 +200,9 @@ function getReferences(schemaName,id,callback) {
                     for(var j=0; j<rows.length; j++){
                         var data = JSON.parse(JSON.stringify(rows[j]));
                         var allProps = Object.getOwnPropertyNames(data);
-                        //console.log("DATA:"+JSON.stringify(rows[j]));
                         var iterations = refKeys.length ;
-                        //console.log(iterations);
                         for(var k=0; k<iterations; k++){
                             if(refKeys[k] != "id"){
-                                //console.log(refSchema.properties[refKeys[k]]);
                                 allRefs.push({
                                     value: rows[j][refKeys[k]],
                                     name: refSchema.properties[refKeys[k]].label,
